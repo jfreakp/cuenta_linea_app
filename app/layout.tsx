@@ -24,9 +24,32 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="bg-background-light dark:bg-background-dark min-h-screen transition-colors duration-200">
+        <header className="w-full py-6 bg-white dark:bg-slate-900 shadow-sm transition-colors duration-200">
+          <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <div className="flex items-center space-x-2">
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-xl">L</span>
+              </div>
+              <span className="text-xl font-bold tracking-tight text-slate-800 dark:text-white uppercase">
+                Banco de Loja
+              </span>
+            </div>
+            <button className="p-2 text-primary hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+              <span className="material-icons-outlined">home</span>
+            </button>
+          </div>
+        </header>
         {children}
       </body>
     </html>

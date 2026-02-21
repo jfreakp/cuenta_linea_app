@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+model Provincia {
+  id              Int        @id @default(autoincrement())
+  codigo          String     @unique @db.VarChar(2)
+  nombre          String     @db.VarChar(100)
+
+  cantones        Canton[]
+
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime?
+}
+
+model Canton {
+  id              Int        @id @default(autoincrement())
+  codigo          String     @unique @db.VarChar(4)
+  nombre          String     @db.VarChar(100)
+
+  provinciaId     Int
+  provincia       Provincia  @relation(fields: [provinciaId], references: [id], onDelete: Cascade)
+
+  parroquias      Parroquia[]
+
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime?
+
+  @@index([provinciaId])
+}
+
+model Parroquia {
+  id              Int        @id @default(autoincrement())
+  codigo          String     @unique @db.VarChar(7)
+  nombre          String     @db.VarChar(100)
+
+  cantonId        Int
+  canton          Canton     @relation(fields: [cantonId], references: [id], onDelete: Cascade)
+
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime?
+
+  @@index([cantonId])
+}
