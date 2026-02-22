@@ -4,21 +4,8 @@ import { AperturaPage } from "./steps/Apertura";
 import { SiguienteButton } from "./buttons/SiguienteButton";
 import { useStep } from "./hooks/useStep";
 import { MoverButton } from "./buttons/MoverButton";
-import { DomicilioPage } from "./steps/Domicilio";
-
-type FormData = {
-  datosPersonales: {
-    cedula: string;
-    codigo_dactilar: string;
-    autoriza_verificacion: boolean;
-  };
-  datosDomicilio: {
-    direccion: string;
-    ciudad: string;
-    estado: string;
-    codigo_postal: string;
-  };
-};
+import { DomicilioPage } from "./steps/Domicilio";    
+import type { FormData } from "../types/FormData";
 
 export default function MultiStepForm() {
   const [step, setStep] = useState(1);
@@ -29,10 +16,15 @@ export default function MultiStepForm() {
       autoriza_verificacion: false,
     },
     datosDomicilio: {
+      provincia: "",
+      canton: "",
+      parroquia: "",
+      barrio: "",
       direccion: "",
-      ciudad: "",
-      estado: "",
-      codigo_postal: "",
+      referencia: "",
+      numero_casa: "",
+      tipo_telefono: "",
+      numero_telefono: "",
     },
   });
 
@@ -77,7 +69,19 @@ export default function MultiStepForm() {
       {/* Paso 2 */}
       {step === 2 && (
         <>
-          <DomicilioPage progress={progress} />
+          <DomicilioPage progress={progress} 
+            formData={formData}
+            onChange={(e) => {
+              const { name, value } = e.target as HTMLInputElement;
+              setFormData((prev) => ({
+                ...prev,
+                datosDomicilio: {
+                  ...prev.datosDomicilio,
+                  [name]: value,
+                },
+              }));
+            }}
+          />
           <SiguienteButton onClick={nextStep} />
         </>
       )}

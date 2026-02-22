@@ -10,7 +10,7 @@ export async function GET(request: Request) {
     const id = parseInt(provinciaId, 10);
     const cantones = await prisma.canton.findMany({
       where: { provinciaId: id },
-      select: { id: true, nombre: true },
+      select: { id: true, nombre: true, codigo: true },
       orderBy: { nombre: 'asc' },
     });
     return new Response(JSON.stringify(cantones), { status: 200 });
