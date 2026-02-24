@@ -1,5 +1,6 @@
 import { useCallback, type Dispatch, type SetStateAction } from "react";
 import type { FormData } from "../../types/FormData";
+import { SonnerNotification } from "../notifications/sonnerNotification";
 
 export function useStep(
   step: number,
@@ -9,59 +10,92 @@ export function useStep(
   const nextStep = useCallback(() => {
     if (step === 1) {
       if (!formData.datosPersonales.cedula) {
-        alert("La cédula es obligatoria");
+        SonnerNotification({
+          type: "error",
+          message: "La cédula es obligatoria",
+        }); 
         return;
       }
 
       if (!formData.datosPersonales.codigo_dactilar) {
-        alert("El código dactilar es obligatorio");
+        SonnerNotification({
+          type: "error",
+          message: "El código dactilar es obligatorio",
+        });
         return;
       }
 
       if (!formData.datosPersonales.autoriza_verificacion) {
-        alert("Debes autorizar la verificación de tus datos");
+        SonnerNotification({
+          type: "error",
+          message: "Debes autorizar la verificación de tus datos",
+        });
         return;
       }
     }
 
     if (step === 2) {
       if (!formData.datosDomicilio.provincia) {
-        alert("La provincia es obligatoria");
+        SonnerNotification({
+          type: "error",
+          message: "La provincia es obligatoria",
+        });
         return;
       }
 
       if (!formData.datosDomicilio.canton) {
-        alert("El cantón es obligatorio");
+        SonnerNotification({
+          type: "error",
+          message: "El cantón es obligatorio",
+        });
         return;
       }
 
       if (!formData.datosDomicilio.parroquia) {
-        alert("La parroquia es obligatoria");
+        SonnerNotification({
+          type: "error",
+          message: "La parroquia es obligatoria",
+        });
         return;
       }
 
       if (!formData.datosDomicilio.barrio) {
-        alert("El barrio es obligatorio");
+        SonnerNotification({
+          type: "error",
+          message: "El barrio es obligatorio",
+        });
         return;
       }
 
       if (!formData.datosDomicilio.direccion) {
-        alert("La dirección es obligatoria");
+        SonnerNotification({
+          type: "error",
+          message: "La dirección es obligatoria",
+        });
         return;
       }
 
       if (!formData.datosDomicilio.referencia) {
-        alert("La referencia es obligatoria");
+        SonnerNotification({
+          type: "error",
+          message: "La referencia es obligatoria",
+        });
         return;
       }
 
       if (!formData.datosDomicilio.tipo_telefono) {
-        alert("El tipo de teléfono es obligatorio");
+        SonnerNotification({
+          type: "error",
+          message: "El tipo de teléfono es obligatorio",
+        });
         return;
       }
 
       if (!formData.datosDomicilio.numero_telefono) {
-        alert("El número de teléfono es obligatorio");
+        SonnerNotification({
+          type: "error",
+          message: "El número de teléfono es obligatorio",
+        });
         return;
       }
     }

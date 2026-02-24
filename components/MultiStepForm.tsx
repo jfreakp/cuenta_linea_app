@@ -1,10 +1,9 @@
 "use client";
 import { useState } from "react";
-import { AperturaPage } from "./steps/Apertura";
-import { SiguienteButton } from "./buttons/SiguienteButton";
+import { AperturaStep } from "./steps/AperturaStep";
+import { SiguienteButton } from "./buttons/ContinuarButton";
 import { useStep } from "./hooks/useStep";
-import { MoverButton } from "./buttons/MoverButton";
-import { DomicilioPage } from "./steps/Domicilio";    
+import { DomicilioStep } from "./steps/DomicilioStep";
 import type { FormData } from "../types/FormData";
 
 export default function MultiStepForm() {
@@ -26,11 +25,40 @@ export default function MultiStepForm() {
       tipo_telefono: "",
       numero_telefono: "",
     },
+    datosCliente: {
+      nombres: "",
+      apellidos: "",
+      correo: "",
+      telefono: "",
+      motivo_apertura: "",
+    },
+    datosLaborales: {
+      relacion_laboral: "",
+      ingresos_mensuales: 0,
+      actividad_economica: "",
+      direccion_laboral: "",
+      provincia: "",
+      canton: "",
+      parroquia: "",
+      barrio: "",
+      telefono_laboral: "",
+      calle_principal: "",
+      calle_secundaria: "",
+      referencia: "",
+      numeracion: "",
+      telefono: "",
+      tipo_telefono: "",
+    },
+    datosFinancieros: {
+      activos: 0,
+      pasivos: 0,
+      patrimonio: 0,
+    },
   });
 
   const { nextStep, prevStep } = useStep(step, setStep, formData);
 
-  const progress = (step / 3) * 100;
+  const progress = (step / 6) * 100;
 
   return (
     <div>
@@ -45,7 +73,7 @@ export default function MultiStepForm() {
       {/* Paso 1 */}
       {step === 1 && (
         <>
-          <AperturaPage
+          <AperturaStep
             progress={progress}
             formData={formData}
             onChange={(e) => {
@@ -69,7 +97,8 @@ export default function MultiStepForm() {
       {/* Paso 2 */}
       {step === 2 && (
         <>
-          <DomicilioPage progress={progress} 
+          <DomicilioStep
+            progress={progress}
             formData={formData}
             onChange={(e) => {
               const { name, value } = e.target as HTMLInputElement;

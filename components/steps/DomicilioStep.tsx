@@ -2,6 +2,7 @@
 import { use, useEffect, useState } from "react";
 import type { FormData } from "../../types/FormData";
 import { on } from "events";
+import { HeaderStep } from "./header/HeaderStep";
 
 interface Props {
   formData: FormData;
@@ -9,7 +10,7 @@ interface Props {
   progress: number;
 }
 
-export const DomicilioPage = ({ formData, onChange, progress }: Props) => {
+export const DomicilioStep = ({ formData, onChange, progress }: Props) => {
   const [phoneType, setPhoneType] = useState<"C" | "M">(
     "M",
   );
@@ -87,25 +88,7 @@ export const DomicilioPage = ({ formData, onChange, progress }: Props) => {
   return (
     <>
       <main className="max-w-4xl mx-auto px-6 py-12">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-normal text-gray-700 dark:text-gray-200">
-            Datos{" "}
-            <span className="text-primary font-semibold">del domicilio</span>
-          </h1>
-          <div className="mt-8 max-w-2xl mx-auto text-left">
-            <div className="flex justify-between items-end mb-2">
-              <span className="text-primary font-medium text-sm uppercase tracking-wider">
-                Paso 2 de 5
-              </span>
-            </div>
-            <div className="w-full bg-gray-200 dark:bg-zinc-800 h-2 rounded-full overflow-hidden">
-              <div
-                className="bg-primary h-full progress-bar"
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
-          </div>
-        </div>
+        <HeaderStep title1="Datos" title2="del domicilio" paso_ini={2} paso_fin={5} progress={progress} />
         <div className="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-gray-100 dark:border-zinc-800 p-8 md:p-12">
           <form action="#" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">

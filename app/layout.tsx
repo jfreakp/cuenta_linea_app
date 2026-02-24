@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,7 +44,7 @@ export default function RootLayout({
                 <span className="text-white font-bold text-xl">L</span>
               </div>
               <span className="text-xl font-bold tracking-tight text-slate-800 dark:text-white uppercase">
-                Banco de Loja
+                Banco de XXX
               </span>
             </div>
             <button className="p-2 text-primary hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
@@ -51,6 +53,7 @@ export default function RootLayout({
           </div>
         </header>
         {children}
+        <Toaster position="top-center" />
       </body>
     </html>
   );
