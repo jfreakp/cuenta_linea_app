@@ -1,14 +1,20 @@
-import {prisma} from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
+    console.log("Fetching provincias...");
     const provincias = await prisma.provincia.findMany({
       select: { id: true, nombre: true, codigo: true },
-      orderBy: { nombre: 'asc' },
+      orderBy: { nombre: "asc" },
     });
-    return new Response(JSON.stringify(provincias), { status: 200 });
+    console.log("Provincias fetched:", provincias);
+    return NextResponse.json(provincias);
   } catch (error) {
-    console.error("Error fetching provincias:", error);
-    return new Response(JSON.stringify({ error: 'Failed to load provincias' }), { status: 500 });
+    console.log("Error fetching provincias:", error);
+    return NextResponse.json(
+      { error: "Failed to load provincias" },
+      { status: 500 },
+    );
   }
 }
