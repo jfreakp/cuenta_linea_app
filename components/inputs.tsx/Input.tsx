@@ -6,6 +6,8 @@ interface InputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
   disabled: boolean;
+  outline?: boolean;
+  outline_title?: string;
 }
 
 export const Input = ({
@@ -16,12 +18,22 @@ export const Input = ({
   value,
   disabled,
   type,
+  outline,
+  outline_title,
 }: InputProps) => {
   return (
     <>
       <div className="space-y-2">
         <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">
           {label}
+          {outline && (
+            <span
+              className="material-icons-outlined text-primary text-base ml-1 cursor-help"
+              title={outline_title}
+            >
+              help_outline
+            </span>
+          )}
         </label>
         <input
           className={`w-full bg-surface-light dark:bg-surface-dark border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 text-gray-600 dark:text-gray-300 ${disabled ? "opacity-50 cursor-not-allowed" : ""} focus:ring-primary focus:border-primary transition-all`}
