@@ -8,6 +8,7 @@ export async function GET() {
     });
     return new Response(JSON.stringify(provincias), { status: 200 });
   } catch (error) {
+    console.error("Error fetching provincias:", error);
     return new Response(JSON.stringify({ error: 'Failed to load provincias' }), { status: 500 });
   }
 }
