@@ -5,6 +5,12 @@ import { SiguienteButton } from "./buttons/ContinuarButton";
 import { useStep } from "./hooks/useStep";
 import { DomicilioStep } from "./steps/DomicilioStep";
 import type { FormData } from "../types/FormData";
+import { DatabaseError } from "pg";
+import { ClienteStep } from "./steps/ClienteStep";
+import { LaboralesStep } from "./steps/LaboralesStep";
+import { LegalizacionStep } from "./steps/Legalizacion";
+import { FinalizarButton } from "./buttons/FinalizarButton";
+import { FinancieroStep } from "./steps/FinancieroStep";
 
 export default function MultiStepForm() {
   const [step, setStep] = useState(1);
@@ -54,6 +60,9 @@ export default function MultiStepForm() {
       pasivos: 0,
       patrimonio: 0,
     },
+    legalizacion: {
+      acepta_terminos: false,
+    },
   });
 
   const { nextStep, prevStep } = useStep(step, setStep, formData);
@@ -76,6 +85,10 @@ export default function MultiStepForm() {
           <AperturaStep
             progress={progress}
             formData={formData}
+            paso_ini={1}
+            paso_fin={6}
+            title1="Apertura"
+            title2="de cuenta"
             onChange={(e) => {
               const { name, type, checked, value } =
                 e.target as HTMLInputElement;
@@ -97,9 +110,38 @@ export default function MultiStepForm() {
       {/* Paso 2 */}
       {step === 2 && (
         <>
+          <ClienteStep
+            progress={progress}
+            formData={formData}
+            paso_ini={2}
+            paso_fin={6}
+            title1="Datos"
+            title2="del cliente"
+            onChange={(e) => {
+              const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
+              setFormData((prev) => ({
+                ...prev,
+                datosCliente: {
+                  ...prev.datosCliente,
+                  [name]: value,
+                },
+              }));
+            }}
+          />
+          <SiguienteButton onClick={nextStep} />
+        </>
+      )}
+
+      {/* Paso 3 */}
+      {step === 3 && (
+        <>
           <DomicilioStep
             progress={progress}
             formData={formData}
+            paso_ini={3}
+            paso_fin={6}
+            title1="Datos"
+            title2="del domicilio"
             onChange={(e) => {
               const { name, value } = e.target as HTMLInputElement;
               setFormData((prev) => ({
@@ -115,39 +157,77 @@ export default function MultiStepForm() {
         </>
       )}
 
-      {/* Paso 3 */}
-      {step === 3 && (
+      {/* Paso 4 */}
+      {step === 4 && (
         <>
-          <h2 className="text-xl font-bold mb-4">Dirección</h2>
-          <input
-            type="text"
-            placeholder="Dirección"
-            className="w-full border p-3 rounded-xl mb-4"
-            value={formData.datosDomicilio.direccion}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                datosDomicilio: {
-                  ...formData.datosDomicilio,
-                  direccion: e.target.value,
+          <LaboralesStep
+            progress={progress}
+            formData={formData}
+            paso_ini={4}
+            paso_fin={6}
+            title1="Datos"
+            title2="laborales"
+            onChange={(e) => {
+              const { name, value } = e.target as HTMLInputElement;
+              setFormData((prev) => ({
+                ...prev,
+                datosLaborales: {
+                  ...prev.datosLaborales,
+                  [name]: value,
                 },
-              })
-            }
+              }));
+            }}
           />
-          <div className="flex justify-between">
-            <button
-              onClick={prevStep}
-              className="bg-gray-300 px-6 py-2 rounded-xl"
-            >
-              Atrás
-            </button>
-            <button
-              onClick={() => alert("Formulario enviado")}
-              className="bg-green-600 text-white px-6 py-2 rounded-xl"
-            >
-              Finalizar
-            </button>
-          </div>
+          <SiguienteButton onClick={nextStep} />
+        </>
+      )}
+
+      {/* Paso 5 */}
+      {step === 5 && (
+        <>
+          <FinancieroStep
+            progress={progress}
+            formData={formData}
+            paso_ini={5}
+            paso_fin={6}
+            title1="Datos"
+            title2="financieros"
+            onChange={(e) => {
+              const { name, value } = e.target as HTMLInputElement;
+              setFormData((prev) => ({
+                ...prev,
+                datosFinancieros: {
+                  ...prev.datosFinancieros,
+                  [name]: Number(value),
+                },
+              }));
+            }}
+          />
+          <SiguienteButton onClick={nextStep} />
+        </>
+      )}
+      {/* Paso 6 */}
+      {step === 6 && (
+        <>
+          <LegalizacionStep
+            progress={progress}
+            formData={formData}
+            paso_ini={6}
+            paso_fin={6}
+            title1="Legalización"
+            title2=""
+            onChange={(e) => {
+              const { name, type, checked } = e.target as HTMLInputElement;
+              setFormData((prev) => ({
+                ...prev,
+                legalizacion: {
+                  ...prev.legalizacion,
+                  [name]: type === "checkbox" ? checked : e.target.value,
+                },
+              }));
+            }}
+          />
+          <FinalizarButton onClick={() => alert("Formulario enviado")} />
         </>
       )}
     </div>

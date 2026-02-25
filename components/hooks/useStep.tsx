@@ -34,7 +34,7 @@ export function useStep(
       }
     }
 
-    if (step === 2) {
+    if (step === 3) {
       if (!formData.datosDomicilio.provincia) {
         SonnerNotification({
           type: "error",

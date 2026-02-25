@@ -8,9 +8,13 @@ interface Props {
   formData: FormData;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   progress: number;
+  paso_ini: number;
+  paso_fin: number;
+  title1: string;
+  title2: string;
 }
 
-export const DomicilioStep = ({ formData, onChange, progress }: Props) => {
+export const DomicilioStep = ({ formData, onChange, progress, paso_ini, paso_fin, title1, title2 }: Props) => {
   const [phoneType, setPhoneType] = useState<"C" | "M">(
     "M",
   );
@@ -88,7 +92,7 @@ export const DomicilioStep = ({ formData, onChange, progress }: Props) => {
   return (
     <>
       <main className="max-w-4xl mx-auto px-6 py-12">
-        <HeaderStep title1="Datos" title2="del domicilio" paso_ini={2} paso_fin={5} progress={progress} />
+        <HeaderStep title1={title1} title2={title2} paso_ini={paso_ini} paso_fin={paso_fin} progress={progress} />
         <div className="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-gray-100 dark:border-zinc-800 p-8 md:p-12">
           <form action="#" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">

@@ -1,25 +1,32 @@
+import { FormData } from "@/types/FormData";
 import { HeaderStep } from "./header/HeaderStep";
 
 interface Props {
   progress: number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  formData: {
-    datosPersonales: {
-      cedula: string;
-      codigo_dactilar: string;
-      autoriza_verificacion: boolean;
-    };
-  };
+  formData: FormData;
+  paso_ini: number;
+  paso_fin: number;
+  title1: string;
+  title2: string;
 }
 
-export const AperturaStep = ({ progress, onChange, formData }: Props) => {
+export const AperturaStep = ({
+  progress,
+  onChange,
+  formData,
+  paso_ini,
+  paso_fin,
+  title1,
+  title2,
+}: Props) => {
   return (
     <main className="max-w-4xl mx-auto px-6 py-12">
       <HeaderStep
-        title1="Apertura"
-        title2="de cuenta"
-        paso_ini={1}
-        paso_fin={5}
+        title1={title1}
+        title2={title2}
+        paso_ini={paso_ini}
+        paso_fin={paso_fin}
         progress={progress}
       />
       <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-8 md:p-12 mb-8 transition-colors duration-200 border border-slate-100 dark:border-slate-800">

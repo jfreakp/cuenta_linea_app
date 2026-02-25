@@ -48,6 +48,10 @@ type FormData = {
     pasivos: number;
     patrimonio: number;
   };
+
+  legalizacion: {
+    acepta_terminos: boolean;
+  };
 };
 
 export type { FormData };
