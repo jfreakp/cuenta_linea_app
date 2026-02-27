@@ -8,6 +8,7 @@ export function useStep(
   formData: FormData,
 ) {
   const nextStep = useCallback(() => {
+    /*
     if (step === 1) {
       if (!formData.datosPersonales.cedula) {
         SonnerNotification({
@@ -98,8 +99,9 @@ export function useStep(
         });
         return;
       }
+        
     }
-
+*/
     setStep((s) => s + 1);
   }, [step, formData, setStep]);
 

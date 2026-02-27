@@ -47,3 +47,39 @@ model Parroquia {
 
   @@index([cantonId])
 }
+
+model Catalogo {
+  id              Int             @id @default(autoincrement())
+  codigo          String          @unique
+  nombre          String
+  descripcion     String?
+  estado          EstadoCatalogo  @default(ACTIVO)
+  fechaCreacion   DateTime        @default(now())
+  usuarioCreacion String?
+
+  items           CatalogoItem[]
+
+  @@map("catalogos")
+}
+
+model CatalogoItem {
+  id              Int             @id @default(autoincrement())
+  catalogoId      Int
+  codigo          String
+  nombre          String
+  descripcion     String?
+  orden           Int?
+  estado          EstadoCatalogo  @default(ACTIVO)
+  fechaCreacion   DateTime        @default(now())
+  usuarioCreacion String?
+
+  catalogo        Catalogo        @relation(fields: [catalogoId], references: [id], onDelete: Cascade)
+
+  @@unique([catalogoId, codigo])
+  @@map("catalogo_items")
+}
+
+enum EstadoCatalogo {
+  ACTIVO
+  INACTIVO
+}

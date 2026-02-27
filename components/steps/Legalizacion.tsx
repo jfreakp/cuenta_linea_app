@@ -53,15 +53,6 @@ export const LegalizacionStep = ({ progress, onChange, formData, paso_ini, paso_
               </label>
             </div>
           </div>
-          <div className="flex justify-center pt-8">
-            <button
-              className="bg-primary hover:bg-green-600 text-white font-medium py-3 px-8 rounded shadow-md hover:shadow-lg transition-all duration-200 text-center w-full sm:w-auto max-w-md"
-              type="button"
-            >
-              Solicitar código para firma <br className="hidden sm:inline" />{" "}
-              electrónica
-            </button>
-          </div>
         </div>
       </div>
     </main>

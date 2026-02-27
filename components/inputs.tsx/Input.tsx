@@ -4,8 +4,8 @@ interface InputProps {
   type: string;
   placeholder?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string;
-  disabled: boolean;
+  value: string | number;
+  disabled?: boolean;
   outline?: boolean;
   outline_title?: string;
 }
@@ -16,7 +16,7 @@ export const Input = ({
   placeholder,
   onChange,
   value,
-  disabled,
+  disabled = false,
   type,
   outline,
   outline_title,
@@ -24,7 +24,7 @@ export const Input = ({
   return (
     <>
       <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">
+        <label className="flex items-center text-sm font-semibold text-slate-600 dark:text-slate-300">
           {label}
           {outline && (
             <span
@@ -36,12 +36,12 @@ export const Input = ({
           )}
         </label>
         <input
-          className={`w-full bg-surface-light dark:bg-surface-dark border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 text-gray-600 dark:text-gray-300 ${disabled ? "opacity-50 cursor-not-allowed" : ""} focus:ring-primary focus:border-primary transition-all`}
+          className={`w-full ${disabled ? "bg-gray-300 dark:bg-gray-600" : "bg-slate-50 dark:bg-slate-800"} border border-gray-300 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-transparent rounded-lg py-3 px-4 text-slate-700 dark:text-slate-200 placeholder-slate-300 dark:placeholder-gray-900 transition-all ${disabled ? "dark:bg-gray-600 dark:text-gray-400" : ""}`}
           placeholder={placeholder}
           type={type}
           name={name}
-          value={value}
           onChange={onChange}
+          value={value}
           disabled={disabled}
         />
       </div>

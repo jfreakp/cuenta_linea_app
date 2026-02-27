@@ -1,5 +1,6 @@
 import { FormData } from "@/types/FormData";
 import { HeaderStep } from "./header/HeaderStep";
+import { Input } from "../inputs.tsx/Input";
 
 interface Props {
   progress: number;
@@ -41,44 +42,28 @@ export const AperturaStep = ({
               Datos de identificación:
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-2">
-                <label className="flex items-center text-sm font-semibold text-slate-600 dark:text-slate-300">
-                  Cédula
-                  <span
-                    className="material-icons-outlined text-primary text-base ml-1 cursor-help"
-                    title="Número de identificación ciudadana"
-                  >
-                    help_outline
-                  </span>
-                </label>
-                <input
-                  className="w-full bg-slate-50 dark:bg-slate-800 border-transparent dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-transparent rounded-lg py-3 px-4 text-slate-700 dark:text-slate-200 placeholder-slate-300 dark:placeholder-slate-500 transition-all"
-                  placeholder="Ej. 1104865987"
-                  type="text"
-                  name="cedula"
-                  onChange={onChange}
-                  value={formData.datosPersonales.cedula}
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="flex items-center text-sm font-semibold text-slate-600 dark:text-slate-300">
-                  Código dactilar
-                  <span
-                    className="material-icons-outlined text-primary text-base ml-1 cursor-help"
-                    title="Ubicado al reverso de tu cédula"
-                  >
-                    help_outline
-                  </span>
-                </label>
-                <input
-                  className="w-full bg-slate-50 dark:bg-slate-800 border-transparent dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-transparent rounded-lg py-3 px-4 text-slate-700 dark:text-slate-200 placeholder-slate-300 dark:placeholder-slate-500 transition-all"
-                  placeholder="Ej. V343VVV342"
-                  type="text"
-                  name="codigo_dactilar"
-                  onChange={onChange}
-                  value={formData.datosPersonales.codigo_dactilar}
-                />
-              </div>
+              <Input
+                name="cedula"
+                label="Cédula"
+                type="text"
+                placeholder="Ej. 1104865987"
+                onChange={onChange}
+                value={formData.datosPersonales.cedula}
+                disabled={false}
+                outline
+                outline_title="Número de identificación ciudadana"
+              />
+              <Input
+                name="codigo_dactilar"
+                label="Código dactilar"
+                type="text"
+                placeholder="Ej. V343VVV342"
+                onChange={onChange}
+                value={formData.datosPersonales.codigo_dactilar}
+                disabled={false}
+                outline
+                outline_title="Ubicado al reverso de tu cédula"
+              />
             </div>
           </div>
           <div className="bg-green-50 dark:bg-green-950/20 border border-green-100 dark:border-green-900/30 rounded-xl p-4 flex items-start space-x-3">

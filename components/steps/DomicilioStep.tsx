@@ -3,6 +3,8 @@ import { use, useEffect, useState } from "react";
 import type { FormData } from "../../types/FormData";
 import { on } from "events";
 import { HeaderStep } from "./header/HeaderStep";
+import { SelectApi } from "../selects/SelectApi";
+import { Input } from "../inputs.tsx/Input";
 
 interface Props {
   formData: FormData;
@@ -14,18 +16,24 @@ interface Props {
   title2: string;
 }
 
-export const DomicilioStep = ({ formData, onChange, progress, paso_ini, paso_fin, title1, title2 }: Props) => {
-  const [phoneType, setPhoneType] = useState<"C" | "M">(
-    "M",
-  );
+export const DomicilioStep = ({
+  formData,
+  onChange,
+  progress,
+  paso_ini,
+  paso_fin,
+  title1,
+  title2,
+}: Props) => {
+  const [phoneType, setPhoneType] = useState<"C" | "M">("M");
   const [provincias, setProvincias] = useState<
-    { id: number; nombre: string, codigo: string }[]
+    { id: number; nombre: string; codigo: string }[]
   >([]);
-  const [cantones, setCantones] = useState<{ id: number; nombre: string, codigo: string }[]>(
-    [],
-  );
+  const [cantones, setCantones] = useState<
+    { id: number; nombre: string; codigo: string }[]
+  >([]);
   const [parroquias, setParroquias] = useState<
-    { id: number; nombre: string, codigo: string }[]
+    { id: number; nombre: string; codigo: string }[]
   >([]);
 
   const [selectedProvincia, setSelectedProvincia] = useState<number | "">("");
@@ -57,7 +65,8 @@ export const DomicilioStep = ({ formData, onChange, progress, paso_ini, paso_fin
     setSelectedCanton("");
     setParroquias([]);
     setSelectedParroquia("");
-    formData.datosDomicilio.provincia = provincias.find((p) => p.id === selectedProvincia)?.codigo || "";
+    formData.datosDomicilio.provincia =
+      provincias.find((p) => p.id === selectedProvincia)?.codigo || "";
     formData.datosDomicilio.canton = "";
     formData.datosDomicilio.parroquia = "";
   }, [selectedProvincia]);
@@ -92,140 +101,101 @@ export const DomicilioStep = ({ formData, onChange, progress, paso_ini, paso_fin
   return (
     <>
       <main className="max-w-4xl mx-auto px-6 py-12">
-        <HeaderStep title1={title1} title2={title2} paso_ini={paso_ini} paso_fin={paso_fin} progress={progress} />
+        <HeaderStep
+          title1={title1}
+          title2={title2}
+          paso_ini={paso_ini}
+          paso_fin={paso_fin}
+          progress={progress}
+        />
         <div className="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-gray-100 dark:border-zinc-800 p-8 md:p-12">
           <form action="#" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">
-                  Provincia
-                </label>
-                <div className="relative">
-                  <select
-                    value={selectedProvincia}
-                    onChange={(e) =>
-                      setSelectedProvincia(
-                        e.target.value ? parseInt(e.target.value, 10) : "",
-                      )
-                    }
-                    className="w-full bg-input-light dark:bg-input-dark border-transparent focus:border-primary focus:ring-0 rounded-lg py-3 px-4 text-gray-700 dark:text-gray-200 appearance-none"
-                  >
-                    <option value="">Selecciona una opción</option>
-                    {provincias.map((p) => (
-                      <option key={p.id} value={p.id}>
-                        {p.nombre}
-                      </option>
-                    ))}
-                  </select>
-                  <span className="material-icons-outlined absolute right-3 top-3 text-primary pointer-events-none">
-                    expand_more
-                  </span>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">
-                  Cantón
-                </label>
-                <div className="relative">
-                  <select
-                    value={selectedCanton}
-                    onChange={(e) =>
-                      setSelectedCanton(
-                        e.target.value ? parseInt(e.target.value, 10) : "",
-                      )
-                    }
-                    className="w-full bg-input-light dark:bg-input-dark border-transparent focus:border-primary focus:ring-0 rounded-lg py-3 px-4 text-gray-700 dark:text-gray-200 appearance-none"
-                  >
-                    <option value="">Selecciona una opción</option>
-                    {cantones.map((c) => (
-                      <option key={c.id} value={c.id}>
-                        {c.nombre}
-                      </option>
-                    ))}
-                  </select>
-                  <span className="material-icons-outlined absolute right-3 top-3 text-primary pointer-events-none">
-                    expand_more
-                  </span>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">
-                  Parroquia
-                </label>
-                <div className="relative">
-                  <select
-                    value={selectedParroquia}
-                    onChange={(e) =>
-                      setSelectedParroquia(
-                        e.target.value ? parseInt(e.target.value, 10) : "",
-                      )
-                    }
-                    className="w-full bg-input-light dark:bg-input-dark border-transparent focus:border-primary focus:ring-0 rounded-lg py-3 px-4 text-gray-700 dark:text-gray-200 appearance-none"
-                  >
-                    <option value="">Selecciona una opción</option>
-                    {parroquias.map((p) => (
-                      <option key={p.id} value={p.id}>
-                        {p.nombre}
-                      </option>
-                    ))}
-                  </select>
-                  <span className="material-icons-outlined absolute right-3 top-3 text-primary pointer-events-none">
-                    expand_more
-                  </span>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">
-                  Barrio
-                </label>
-                <input
-                  className="w-full bg-input-light dark:bg-input-dark border-transparent focus:border-primary focus:ring-0 rounded-lg py-3 px-4 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
-                  placeholder="Ej. El Valle"
-                  type="text"
-                  name="barrio"
-                  value={formData.datosDomicilio.barrio}
-                  onChange={onChange}
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">
-                  Dirección
-                </label>
-                <input
-                  className="w-full bg-input-light dark:bg-input-dark border-transparent focus:border-primary focus:ring-0 rounded-lg py-3 px-4 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
-                  placeholder="Ej. Calle 18 de noviembre y Gonzanamá"
-                  type="text"
-                  name="direccion"
-                  value={formData.datosDomicilio.direccion}
-                  onChange={onChange}
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">
-                  Referencia
-                </label>
-                <input
-                  className="w-full bg-input-light dark:bg-input-dark border-transparent focus:border-primary focus:ring-0 rounded-lg py-3 px-4 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
-                  placeholder="Ej. Junto al colegio"
-                  type="text"
-                  name="referencia"
-                  value={formData.datosDomicilio.referencia}
-                  onChange={onChange}
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">
-                  Num. Casa
-                </label>
-                <input
-                  className="w-full bg-input-light dark:bg-input-dark border-transparent focus:border-primary focus:ring-0 rounded-lg py-3 px-4 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
-                  placeholder="Ej. 242A32"
-                  type="text"
-                  name="numero_casa"
-                  value={formData.datosDomicilio.numero_casa}
-                  onChange={onChange}
-                />
-              </div>
+              <SelectApi
+                label={"Provincia"}
+                name={"provincia"}
+                id={"provincia"}
+                formData={formData}
+                onChange={(e) =>
+                  setSelectedProvincia(
+                    e.target.value ? parseInt(e.target.value, 10) : "",
+                  )
+                }
+                options={provincias.map((p) => ({
+                  value: String(p.id),
+                  label: p.nombre,
+                }))}
+                value={String(selectedProvincia)}
+              />
+
+              <SelectApi
+                label={"Cantón"}
+                name={"canton"}
+                id={"canton"}
+                formData={formData}
+                onChange={(e) =>
+                  setSelectedCanton(
+                    e.target.value ? parseInt(e.target.value, 10) : "",
+                  )
+                }
+                options={cantones.map((c) => ({
+                  value: String(c.id),
+                  label: c.nombre,
+                }))}
+                value={String(selectedCanton)}
+              />
+
+              <SelectApi
+                label={"Parroquia"}
+                name={"parroquia"}
+                id={"parroquia"}
+                formData={formData}
+                onChange={(e) =>
+                  setSelectedParroquia(
+                    e.target.value ? parseInt(e.target.value, 10) : "",
+                  )
+                }
+                options={parroquias.map((p) => ({
+                  value: String(p.id),
+                  label: p.nombre,
+                }))}
+                value={String(selectedParroquia)}
+              />
+
+              <Input
+                name="barrio"
+                label="Barrio"
+                type="text"
+                placeholder="Ej. El Valle"
+                onChange={onChange}
+                value={formData.datosDomicilio.barrio}
+              />
+              <Input
+                name="direccion"
+                label="Dirección"
+                type="text"
+                placeholder="Ej. Calle 18 de noviembre y Gonzanamá"
+                onChange={onChange}
+                value={formData.datosDomicilio.direccion}
+              />
+              <Input
+                name="referencia"
+                label="Referencia"
+                type="text"
+                placeholder="Ej. Junto al colegio"
+                onChange={onChange}
+                value={formData.datosDomicilio.referencia}
+              />
+              <Input
+                name="numero_casa"
+                label="Num. Casa"
+                type="text"
+                placeholder="Ej. 242A32"
+                onChange={onChange}
+                value={formData.datosDomicilio.numero_casa}
+              />
+              
+              
               <div className="space-y-2">
                 <div className="flex justify-between items-center mb-1">
                   <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 px-2">
