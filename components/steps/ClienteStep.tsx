@@ -3,8 +3,7 @@
 import { HeaderStep } from "./header/HeaderStep";
 import type { FormData } from "../../types/FormData";
 import { Input } from "../inputs.tsx/Input";
-import { SelectGeneric } from "../selects/SelectGeneric";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SelectApi } from "../selects/SelectApi";
 
 interface Props {
@@ -57,7 +56,7 @@ export const ClienteStep = ({
     }
   }, [selectedMotivoApertura]);
 
-  
+
  
   return (
     (formData.datosCliente.nombres = "Juan Pablo"),
@@ -106,20 +105,13 @@ export const ClienteStep = ({
             />
 
             <SelectApi
-                label={"Motivo de apertura"}
-                name={"motivo_apertura"}
-                id={"motivo_apertura"}
+                label="Motivo de apertura"
+                name="motivo_apertura"
+                id="motivo_apertura"
                 formData={formData}
-                onChange={(e) =>
-                  setSelectedMotivoApertura(
-                    e.target.value ? parseInt(e.target.value, 10) : "",
-                  )
-                }
-                options={motivosApertura.map((m) => ({
-                  value: String(m.value),
-                  label: m.label,
-                }))}
-                value={String(selectedMotivoApertura)}
+                onChange={onChange}
+                options={motivosApertura}
+                value={formData.datosCliente.motivo_apertura || ""}
               />
 
           </div>
