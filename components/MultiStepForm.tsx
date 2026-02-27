@@ -71,14 +71,6 @@ export default function MultiStepForm() {
 
   return (
     <div>
-      {/* Barra de progreso */}
-      <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
-        <div
-          className="bg-primary h-2 rounded-full transition-all"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
-
       {/* Paso 1 */}
       {step === 1 && (
         <>
