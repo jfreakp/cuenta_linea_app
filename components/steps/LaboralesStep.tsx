@@ -97,6 +97,62 @@ export const LaboralesStep = ({
   useEffect(() => {
     formData.datosDomicilio.tipo_telefono = phoneType;
   }, [phoneType]);
+
+  const [relacionLaboralOptions, setRelacionLaboralOptions] = useState<
+     { value: string; label: string }[]
+  >([]);
+
+  const [actividadEconomicaOptions, setActividadEconomicaOptions] = useState<
+     { value: string; label: string }[]
+  >([]);
+
+  useEffect(() => {
+    fetch("/api/catalogos/ACTIVIDAD_ECONOMICA")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.items) {
+          const opciones = data.items.map(
+            (item: { codigo: string; nombre: string }) => ({
+              value: item.codigo,
+              label: item.nombre,
+            })
+          );
+          setActividadEconomicaOptions(opciones);
+        }
+      })
+      .catch(() => setActividadEconomicaOptions([]));
+  }, []);
+
+  useEffect(() => {
+    if (actividadEconomicaOptions.length > 0) {
+      formData.datosLaborales.actividad_economica = actividadEconomicaOptions[0].value;
+    }
+  }, [actividadEconomicaOptions]);
+
+
+   useEffect(() => {
+    fetch("/api/catalogos/RELACION_LABORAL")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.items) {
+          const opciones = data.items.map(
+            (item: { codigo: string; nombre: string }) => ({
+              value: item.codigo,
+              label: item.nombre,
+            })
+          );
+          setRelacionLaboralOptions(opciones);
+        }
+      })
+      .catch(() => setRelacionLaboralOptions([]));
+  }, []);
+
+  useEffect(() => {
+    if (relacionLaboralOptions.length > 0) {
+      formData.datosLaborales.relacion_laboral = relacionLaboralOptions[0].value;
+    }
+  }, [relacionLaboralOptions]);
+
   return (
     <main className="flex-grow container mx-auto px-4 py-8 max-w-4xl">
       <HeaderStep
@@ -108,17 +164,14 @@ export const LaboralesStep = ({
       />
       <div className="bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded shadow-card p-6 md:p-8">
         <div className="grid md:grid-cols-2 gap-8">
-          <SelectGeneric
+          <SelectApi
             label="Relación laboral"
-            onChange={onChange}
             name="relacion_laboral"
             id="relacion_laboral"
-            value={formData.datosLaborales.relacion_laboral}
-            options={[
-              { value: "I", label: "Independiente" },
-              { value: "D", label: "Dependiente" },
-              { value: "J", label: "Jubilado" },
-            ]}
+            formData={formData}
+            onChange={onChange}
+            options={relacionLaboralOptions}
+            value={formData.datosLaborales.relacion_laboral || ""}
           />
           <Input
             name="ingresos_mensuales"
@@ -129,17 +182,14 @@ export const LaboralesStep = ({
             value={formData.datosLaborales.ingresos_mensuales}
             disabled={false}
           />
-          <SelectGeneric
+          <SelectApi
             label="Actividad económica"
-            value={formData.datosLaborales.actividad_economica}
-            onChange={onChange}
             name="actividad_economica"
             id="actividad_economica"
-            options={[
-              { value: "I", label: "Independiente" },
-              { value: "D", label: "Dependiente" },
-              { value: "J", label: "Jubilado" },
-            ]}
+            formData={formData}
+            onChange={onChange}
+            options={actividadEconomicaOptions}
+            value={formData.datosLaborales.actividad_economica || ""}
           />
           <div className="pt-2"></div>
 

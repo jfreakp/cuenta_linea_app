@@ -215,7 +215,7 @@ export default function MultiStepForm() {
             paso_ini={6}
             paso_fin={6}
             title1="Legalización"
-            title2=""
+            title2=" de Documentos"
             onChange={(e) => {
               const { name, type, checked } = e.target as HTMLInputElement;
               setFormData((prev) => ({

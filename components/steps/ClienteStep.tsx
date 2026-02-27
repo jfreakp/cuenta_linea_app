@@ -4,6 +4,8 @@ import { HeaderStep } from "./header/HeaderStep";
 import type { FormData } from "../../types/FormData";
 import { Input } from "../inputs.tsx/Input";
 import { SelectGeneric } from "../selects/SelectGeneric";
+import { use, useEffect, useState } from "react";
+import { SelectApi } from "../selects/SelectApi";
 
 interface Props {
   progress: number;
@@ -26,6 +28,37 @@ export const ClienteStep = ({
   title1,
   title2,
 }: Props) => {
+  const [motivosApertura, setMotivosApertura] = useState<
+    { value: string; label: string }[]
+  >([]);
+
+  const [selectedMotivoApertura, setSelectedMotivoApertura] = useState<"" | "">("");
+
+  useEffect(() => {
+    fetch("/api/catalogos/MOTIVO_APERTURA")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.items) {
+          const opciones = data.items.map(
+            (item: { codigo: string; nombre: string }) => ({
+              value: item.codigo,
+              label: item.nombre,
+            })
+          );
+          setMotivosApertura(opciones);
+        }
+      })
+      .catch(() => setMotivosApertura([]));
+  }, []);
+
+  useEffect(() => {
+    if (selectedMotivoApertura) {
+      formData.datosCliente.motivo_apertura = selectedMotivoApertura;
+    }
+  }, [selectedMotivoApertura]);
+
+  
+ 
   return (
     (formData.datosCliente.nombres = "Juan Pablo"),
     (formData.datosCliente.apellidos = "Torres Diaz"),
@@ -72,18 +105,23 @@ export const ClienteStep = ({
               disabled={false}
             />
 
-            <SelectGeneric
-              label="Motivo de apertura"
-              onChange={onChange}
-              name="motivo_apertura"
-              id="motivo_apertura"
-              value={formData.datosCliente.motivo_apertura}
-              options={[
-                { value: "ahorros", label: "Ahorros" },
-                { value: "nomina", label: "Nómina" },
-                { value: "inversion", label: "Inversión" },
-              ]}
-            />
+            <SelectApi
+                label={"Motivo de apertura"}
+                name={"motivo_apertura"}
+                id={"motivo_apertura"}
+                formData={formData}
+                onChange={(e) =>
+                  setSelectedMotivoApertura(
+                    e.target.value ? parseInt(e.target.value, 10) : "",
+                  )
+                }
+                options={motivosApertura.map((m) => ({
+                  value: String(m.value),
+                  label: m.label,
+                }))}
+                value={String(selectedMotivoApertura)}
+              />
+
           </div>
         </div>
         <div className="w-full max-w-4xl mt-6 px-1">
