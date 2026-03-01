@@ -11,12 +11,14 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "@prisma/adapter-pg": "^7.4.1",
     "@prisma/client": "^7.4.1",
     "@supabase/supabase-js": "^2.97.0",
     "axios": "^1.13.5",
     "dotenv": "^17.3.1",
     "next": "16.1.6",
+    "nodemailer": "^6.9.7",
     "pg": "^8.18.0",
     "postcss": "^8.5.6",
     "react": "19.2.3",
@@ -28,6 +30,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.0",
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.14",
     "@types/pg": "^8.16.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",

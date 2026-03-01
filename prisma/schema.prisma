@@ -6,6 +6,32 @@ datasource db {
   provider = "postgresql"
 }
 
+enum EstadoUsuario {
+  ACTIVO
+  INACTIVO
+  PENDIENTE_VERIFICACION
+}
+
+model Usuario {
+  id                      Int              @id @default(autoincrement())
+  email                   String           @unique @db.VarChar(120)
+  password                String           @db.VarChar(255)
+  nombres                 String?          @db.VarChar(100)
+  apellidos               String?          @db.VarChar(100)
+  estado                  EstadoUsuario    @default(PENDIENTE_VERIFICACION)
+  emailVerificado         Boolean          @default(false)
+  tokenVerificacion       String?          @unique
+  tokenVerificacionExp    DateTime?
+  tokenReset              String?          @unique
+  tokenResetExp           DateTime?
+  ultimoLogin             DateTime?
+  clienteId               Int?             @unique
+  
+  createdAt               DateTime         @default(now())
+  updatedAt               DateTime         @updatedAt
+
+  @@index([email])
+}
 
 model Provincia {
   id              Int        @id @default(autoincrement())
