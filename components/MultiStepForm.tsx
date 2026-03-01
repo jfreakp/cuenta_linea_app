@@ -5,7 +5,6 @@ import { SiguienteButton } from "./buttons/ContinuarButton";
 import { useStep } from "./hooks/useStep";
 import { DomicilioStep } from "./steps/DomicilioStep";
 import type { FormData } from "../types/FormData";
-import { DatabaseError } from "pg";
 import { ClienteStep } from "./steps/ClienteStep";
 import { LaboralesStep } from "./steps/LaboralesStep";
 import { LegalizacionStep } from "./steps/Legalizacion";
@@ -70,7 +69,7 @@ export default function MultiStepForm() {
   const progress = (step / 6) * 100;
 
   return (
-    <div>
+    <div className="min-h-screen">
       {/* Paso 1 */}
       {step === 1 && (
         <>

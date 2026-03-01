@@ -53,9 +53,9 @@ export const LaboralesStep = ({
       setSelectedCanton("");
       setParroquias([]);
       setSelectedParroquia("");
-      formData.datosDomicilio.provincia = "";
-      formData.datosDomicilio.canton = "";
-      formData.datosDomicilio.parroquia = "";
+      formData.datosLaborales.provincia = "";
+      formData.datosLaborales.canton = "";
+      formData.datosLaborales.parroquia = "";
       return;
     }
     fetch(`/api/cantones?provinciaId=${selectedProvincia}`)
@@ -65,18 +65,18 @@ export const LaboralesStep = ({
     setSelectedCanton("");
     setParroquias([]);
     setSelectedParroquia("");
-    formData.datosDomicilio.provincia =
+    formData.datosLaborales.provincia =
       provincias.find((p) => p.id === selectedProvincia)?.codigo || "";
-    formData.datosDomicilio.canton = "";
-    formData.datosDomicilio.parroquia = "";
+    formData.datosLaborales.canton = "";
+    formData.datosLaborales.parroquia = "";
   }, [selectedProvincia]);
 
   useEffect(() => {
     if (!selectedCanton) {
       setParroquias([]);
       setSelectedParroquia("");
-      formData.datosDomicilio.canton = "";
-      formData.datosDomicilio.parroquia = "";
+      formData.datosLaborales.canton = "";
+      formData.datosLaborales.parroquia = "";
       return;
     }
     fetch(`/api/parroquias?cantonId=${selectedCanton}`)
@@ -84,18 +84,18 @@ export const LaboralesStep = ({
       .then((data) => setParroquias(data || []))
       .catch(() => setParroquias([]));
     setSelectedParroquia("");
-    formData.datosDomicilio.canton =
+    formData.datosLaborales.canton =
       cantones.find((c) => c.id === selectedCanton)?.codigo || "";
-    formData.datosDomicilio.parroquia = "";
+    formData.datosLaborales.parroquia = "";
   }, [selectedCanton]);
 
   useEffect(() => {
-    formData.datosDomicilio.parroquia =
+    formData.datosLaborales.parroquia =
       parroquias.find((p) => p.id === selectedParroquia)?.codigo || "";
   }, [selectedParroquia]);
 
   useEffect(() => {
-    formData.datosDomicilio.tipo_telefono = phoneType;
+    formData.datosLaborales.tipo_telefono = phoneType;
   }, [phoneType]);
 
   const [relacionLaboralOptions, setRelacionLaboralOptions] = useState<
@@ -162,7 +162,7 @@ export const LaboralesStep = ({
         paso_ini={paso_ini}
         paso_fin={paso_fin}
       />
-      <div className="bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded shadow-card p-6 md:p-8">
+      <div className="bg-surface-light dark:bg-slate-900 border border-gray-200 dark:border-gray-700 rounded shadow-card p-6 md:p-8">
         <div className="grid md:grid-cols-2 gap-8">
           <SelectApi
             label="Relación laboral"

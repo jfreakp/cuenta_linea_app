@@ -108,7 +108,7 @@ export const DomicilioStep = ({
           paso_fin={paso_fin}
           progress={progress}
         />
-        <div className="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-gray-100 dark:border-zinc-800 p-8 md:p-12">
+        <div className="bg-card-light dark:bg-slate-900 rounded-xl shadow-sm border border-gray-100 dark:border-zinc-800 p-8 md:p-12">
           <form action="#" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
               <SelectApi
@@ -230,7 +230,7 @@ export const DomicilioStep = ({
                   </div>
                 </div>
                 <input
-                  className="w-full bg-input-light dark:bg-input-dark border-transparent focus:border-primary focus:ring-0 rounded-lg py-3 px-4 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
+                  className="w-full bg-input-light dark:bg-slate-800 border-transparent focus:border-primary focus:ring-0 rounded-lg py-3 px-4 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
                   placeholder="Ej. 098965878"
                   type="tel"
                   name="numero_telefono"

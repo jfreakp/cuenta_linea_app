@@ -13,7 +13,7 @@ interface Props {
 
 export const LegalizacionStep = ({ progress, onChange, formData, paso_ini, paso_fin, title1, title2 }: Props) => {
   return (
-    <main className="flex-grow flex flex-col items-center pt-8 pb-12 px-4 sm:px-6">
+    <main className="flex-grow flex flex-col items-center pt-8 pb-12 px-4 h-full">
       <div className="w-full max-w-4xl space-y-8">
         <HeaderStep
           title1={title1}
@@ -26,7 +26,7 @@ export const LegalizacionStep = ({ progress, onChange, formData, paso_ini, paso_
           <h2 className="text-xl text-gray-600 dark:text-gray-300 font-medium">
             Acepta los términos y condiciones
           </h2>
-          <div className="bg-surface-light dark:bg-surface-dark p-6 rounded-md flex items-start gap-4 shadow-sm border border-gray-100 dark:border-gray-600">
+          <div className="bg-surface-light dark:bg-slate-900 p-6 rounded-md flex items-start gap-4 shadow-sm border border-gray-100 dark:border-gray-600">
             <div className="flex h-6 items-center">
               <input
                 className="h-5 w-5 rounded border-gray-300 text-primary focus:ring-primary custom-checkbox cursor-pointer bg-white dark:bg-gray-600 dark:border-gray-500"

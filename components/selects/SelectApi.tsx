@@ -29,7 +29,7 @@ export const SelectApi = ({
       </label>
       <div className="relative">
         <select
-          className="w-full bg-input-light dark:bg-input-dark border-transparent focus:border-primary focus:ring-0 rounded-lg my-1 py-3 px-4 text-gray-700 dark:text-gray-200 appearance-none"
+          className="min-w-[360px] w-full bg-input-light dark:bg-slate-800 border border-gray-300 dark:border-slate-700 focus:border-primary focus:ring-0 rounded-lg my-1 py-3 px-4 text-gray-700 dark:text-gray-200 appearance-none"
           id={id}
           name={name}
           value={value ?? ""}

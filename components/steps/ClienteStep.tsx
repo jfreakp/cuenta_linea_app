@@ -70,7 +70,7 @@ export const ClienteStep = ({
           paso_fin={paso_fin}
           progress={progress}
         />
-        <div className="bg-surface-light dark:bg-surface-dark w-full max-w-4xl rounded-lg shadow-sm border border-border-light dark:border-border-dark p-6 md:p-8">
+        <div className="bg-surface-light dark:bg-slate-900 w-full max-w-4xl rounded-lg shadow-sm border border-border-light dark:border-border-dark p-6 md:p-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             <Input
               name="nombre_apellido"
@@ -140,6 +140,7 @@ export const ClienteStep = ({
                 onChange={onChange}
                 name="obligaciones_tributarias"
                 value="N"
+                checked={true}
               />
               <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">
                 No
