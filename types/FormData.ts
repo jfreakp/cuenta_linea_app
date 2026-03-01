@@ -30,17 +30,17 @@ type FormData = {
     ingresos_mensuales: number;
     actividad_economica: string;
     direccion_laboral: string;
-    provincia: string;
-    canton: string;
-    parroquia: string;
-    barrio: string;
+    provincia_laboral: string;
+    canton_laboral: string;
+    parroquia_laboral: string;
+    barrio_laboral: string;
+    calle_principal_laboral: string;
+    calle_secundaria_laboral: string;
+    referencia_laboral: string;
+    numeracion_laboral: string;
     telefono_laboral: string;
-    calle_principal: string;
-    calle_secundaria: string;
-    referencia: string;
-    numeracion: string;
-    telefono: string;
-    tipo_telefono: string;
+    tipo_telefono_laboral: string;
+    numero_casa_laboral: string;
   };
 
   datosFinancieros: {

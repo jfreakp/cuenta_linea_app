@@ -10,6 +10,7 @@ import { LaboralesStep } from "./steps/LaboralesStep";
 import { LegalizacionStep } from "./steps/Legalizacion";
 import { FinalizarButton } from "./buttons/FinalizarButton";
 import { FinancieroStep } from "./steps/FinancieroStep";
+import { toast } from "sonner";
 
 export default function MultiStepForm() {
   const [step, setStep] = useState(1);
@@ -42,17 +43,17 @@ export default function MultiStepForm() {
       ingresos_mensuales: 0,
       actividad_economica: "",
       direccion_laboral: "",
-      provincia: "",
-      canton: "",
-      parroquia: "",
-      barrio: "",
+      provincia_laboral: "",
+      canton_laboral: "",
+      parroquia_laboral: "",
+      barrio_laboral: "",
+      calle_principal_laboral: "",
+      calle_secundaria_laboral: "",
+      referencia_laboral: "",
+      numeracion_laboral: "",
       telefono_laboral: "",
-      calle_principal: "",
-      calle_secundaria: "",
-      referencia: "",
-      numeracion: "",
-      telefono: "",
-      tipo_telefono: "",
+      tipo_telefono_laboral: "",
+      numero_casa_laboral: "",
     },
     datosFinancieros: {
       activos: 0,
@@ -67,6 +68,49 @@ export default function MultiStepForm() {
   const { nextStep, prevStep } = useStep(step, setStep, formData);
 
   const progress = (step / 6) * 100;
+
+  const handleFinalize = async () => {
+    try {
+      // Validar que los datos requeridos estén completos
+      if (!formData.datosPersonales.cedula) {
+        toast.error("Por favor complete los datos personales");
+        return;
+      }
+      if (!formData.datosCliente.correo) {
+        toast.error("Por favor complete el correo");
+        return;
+      }
+      if (!formData.legalizacion.acepta_terminos) {
+        toast.error("Debe aceptar los términos y condiciones");
+        return;
+      }
+
+      // Llamar al API para guardar los datos
+      const response = await fetch("/api/clientes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        toast.error(result.error || "Error al guardar los datos");
+        return;
+      }
+
+      toast.success("¡Formulario enviado exitosamente!");
+      console.log("Cliente guardado:", result.cliente);
+
+      // Aquí puedes realizar acciones adicionales como redirigir, etc.
+      // window.location.href = '/success';
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Error al enviar el formulario");
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -109,7 +153,9 @@ export default function MultiStepForm() {
             title1="Datos"
             title2="del cliente"
             onChange={(e) => {
-              const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
+              const { name, value } = e.target as
+                | HTMLInputElement
+                | HTMLSelectElement;
               setFormData((prev) => ({
                 ...prev,
                 datosCliente: {
@@ -218,7 +264,7 @@ export default function MultiStepForm() {
               }));
             }}
           />
-          <FinalizarButton onClick={() => alert("Formulario enviado")} />
+          <FinalizarButton onClick={handleFinalize} />
         </>
       )}
     </div>

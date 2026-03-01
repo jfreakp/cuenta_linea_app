@@ -9,7 +9,7 @@ interface HeaderStepProps {
 export const HeaderStep = ({ title1, title2, paso_ini, paso_fin, progress }: HeaderStepProps) => {
   return (
     <div className="text-center mb-10">
-      <h1 className="text-4xl font-light text-slate-700 dark:text-slate-200 mb-6">
+      <h1 className="text-4xl font-light text-slate-700 mb-6">
         {title1} <span className="text-primary font-bold">{title2}</span>
       </h1>
       <div className="max-w-md mx-auto">
@@ -18,7 +18,7 @@ export const HeaderStep = ({ title1, title2, paso_ini, paso_fin, progress }: Hea
             Paso {paso_ini} de {paso_fin}
           </span>
         </div>
-        <div className="progress-bar-container w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+        <div className="progress-bar-container w-full bg-slate-200 rounded-full overflow-hidden">
           <div
             className="h-full bg-primary rounded-full"
             style={{ width: `${progress}%` }}

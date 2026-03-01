@@ -23,13 +23,13 @@ export const LegalizacionStep = ({ progress, onChange, formData, paso_ini, paso_
           progress={progress}
         />
         <div className="w-full max-w-3xl mx-auto mt-10 space-y-6">
-          <h2 className="text-xl text-gray-600 dark:text-gray-300 font-medium">
+          <h2 className="text-xl text-gray-600 font-medium">
             Acepta los términos y condiciones
           </h2>
-          <div className="bg-surface-light dark:bg-slate-900 p-6 rounded-md flex items-start gap-4 shadow-sm border border-gray-100 dark:border-gray-600">
+          <div className="bg-surface-light p-6 rounded-md flex items-start gap-4 shadow-sm border border-gray-100">
             <div className="flex h-6 items-center">
               <input
-                className="h-5 w-5 rounded border-gray-300 text-primary focus:ring-primary custom-checkbox cursor-pointer bg-white dark:bg-gray-600 dark:border-gray-500"
+                className="h-5 w-5 rounded border-gray-300 text-primary focus:ring-primary custom-checkbox cursor-pointer bg-white"
                 id="acepta_terminos"
                 name="acepta_terminos"
                 type="checkbox"
@@ -37,7 +37,7 @@ export const LegalizacionStep = ({ progress, onChange, formData, paso_ini, paso_
                 onChange={onChange}
               />
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            <div className="text-sm text-gray-600 leading-relaxed">
               <label
                 className="cursor-pointer select-none"
                 htmlFor="acepta_terminos"

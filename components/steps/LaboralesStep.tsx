@@ -53,9 +53,9 @@ export const LaboralesStep = ({
       setSelectedCanton("");
       setParroquias([]);
       setSelectedParroquia("");
-      formData.datosLaborales.provincia = "";
-      formData.datosLaborales.canton = "";
-      formData.datosLaborales.parroquia = "";
+      formData.datosLaborales.provincia_laboral = "";
+      formData.datosLaborales.canton_laboral = "";
+      formData.datosLaborales.parroquia_laboral = "";
       return;
     }
     fetch(`/api/cantones?provinciaId=${selectedProvincia}`)
@@ -65,18 +65,18 @@ export const LaboralesStep = ({
     setSelectedCanton("");
     setParroquias([]);
     setSelectedParroquia("");
-    formData.datosLaborales.provincia =
+    formData.datosLaborales.provincia_laboral =
       provincias.find((p) => p.id === selectedProvincia)?.codigo || "";
-    formData.datosLaborales.canton = "";
-    formData.datosLaborales.parroquia = "";
+    formData.datosLaborales.canton_laboral = "";
+    formData.datosLaborales.parroquia_laboral = "";
   }, [selectedProvincia]);
 
   useEffect(() => {
     if (!selectedCanton) {
       setParroquias([]);
       setSelectedParroquia("");
-      formData.datosLaborales.canton = "";
-      formData.datosLaborales.parroquia = "";
+      formData.datosLaborales.canton_laboral = "";
+      formData.datosLaborales.parroquia_laboral = "";
       return;
     }
     fetch(`/api/parroquias?cantonId=${selectedCanton}`)
@@ -84,18 +84,18 @@ export const LaboralesStep = ({
       .then((data) => setParroquias(data || []))
       .catch(() => setParroquias([]));
     setSelectedParroquia("");
-    formData.datosLaborales.canton =
+    formData.datosLaborales.canton_laboral =
       cantones.find((c) => c.id === selectedCanton)?.codigo || "";
-    formData.datosLaborales.parroquia = "";
+    formData.datosLaborales.parroquia_laboral = "";
   }, [selectedCanton]);
 
   useEffect(() => {
-    formData.datosLaborales.parroquia =
+    formData.datosLaborales.parroquia_laboral =
       parroquias.find((p) => p.id === selectedParroquia)?.codigo || "";
   }, [selectedParroquia]);
 
   useEffect(() => {
-    formData.datosLaborales.tipo_telefono = phoneType;
+    formData.datosLaborales.tipo_telefono_laboral = phoneType;
   }, [phoneType]);
 
   const [relacionLaboralOptions, setRelacionLaboralOptions] = useState<
@@ -162,7 +162,7 @@ export const LaboralesStep = ({
         paso_ini={paso_ini}
         paso_fin={paso_fin}
       />
-      <div className="bg-surface-light dark:bg-slate-900 border border-gray-200 dark:border-gray-700 rounded shadow-card p-6 md:p-8">
+      <div className="bg-surface-light border border-gray-200 rounded shadow-card p-6 md:p-8">
         <div className="grid md:grid-cols-2 gap-8">
           <SelectApi
             label="Relación laboral"
@@ -194,16 +194,17 @@ export const LaboralesStep = ({
           <div className="pt-2"></div>
 
           <div className="pt-2">
-            <h2 className="text-sm font-medium text-gray-800 dark:text-gray-200 mb-2">
+            <h2 className="text-sm font-medium text-gray-800 mb-2">
               Dirección de trabajo:
             </h2>
             <div />
             <Toggle />
           </div>
+          <div className="pt-2"></div>
           <SelectApi
             label={"Provincia"}
-            name={"provincia"}
-            id={"provincia"}
+            name={"provincia_laboral"}
+            id={"provincia_laboral"}
             formData={formData}
             onChange={(e) =>
               setSelectedProvincia(
@@ -219,8 +220,8 @@ export const LaboralesStep = ({
 
           <SelectApi
             label={"Cantón"}
-            name={"canton"}
-            id={"canton"}
+            name={"canton_laboral"}
+            id={"canton_laboral"}
             formData={formData}
             onChange={(e) =>
               setSelectedCanton(
@@ -236,8 +237,8 @@ export const LaboralesStep = ({
 
           <SelectApi
             label={"Parroquia"}
-            name={"parroquia"}
-            id={"parroquia"}
+            name={"parroquia_laboral"}
+            id={"parroquia_laboral"}
             formData={formData}
             onChange={(e) =>
               setSelectedParroquia(
@@ -252,36 +253,36 @@ export const LaboralesStep = ({
           />
 
           <Input
-            name="barrio"
+            name="barrio_laboral"
             label="Barrio"
             type="text"
             placeholder="Ej. El Valle"
             onChange={onChange}
-            value={formData.datosDomicilio.barrio}
+            value={formData.datosLaborales.barrio_laboral}
           />
           <Input
-            name="direccion"
+            name="direccion_laboral"
             label="Dirección"
             type="text"
             placeholder="Ej. Calle 18 de noviembre y Gonzanamá"
             onChange={onChange}
-            value={formData.datosDomicilio.direccion}
+            value={formData.datosLaborales.direccion_laboral}
           />
           <Input
-            name="referencia"
+            name="referencia_laboral"
             label="Referencia"
             type="text"
             placeholder="Ej. Junto al colegio"
             onChange={onChange}
-            value={formData.datosDomicilio.referencia}
+            value={formData.datosLaborales.referencia_laboral}
           />
           <Input
-            name="numero_casa"
+            name="numero_casa_laboral"
             label="Num. Casa"
             type="text"
             placeholder="Ej. 242A32"
             onChange={onChange}
-            value={formData.datosDomicilio.numero_casa}
+            value={formData.datosLaborales.numero_casa_laboral}
           />
         </div>
       </div>

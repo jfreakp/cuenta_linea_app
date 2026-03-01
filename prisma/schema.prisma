@@ -83,3 +83,122 @@ enum EstadoCatalogo {
   ACTIVO
   INACTIVO
 }
+
+model Cliente {
+  id                    Int                 @id @default(autoincrement())
+  nombres               String              @db.VarChar(100)
+  apellidos             String              @db.VarChar(100)
+  correo                String              @unique @db.VarChar(120)
+  telefono              String?             @db.VarChar(20)
+  motivo_apertura       String?             @db.VarChar(50)
+  estado                String              @default("PENDIENTE") @db.VarChar(20)
+  
+  datosPersonales       DatosPersonales?
+  datosDomicilio        DatosDomicilio?
+  datosLaborales        DatosLaborales?
+  datosFinancieros      DatosFinancieros?
+  legalizacion          Legalizacion?
+
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime?
+
+  @@map("clientes")
+}
+
+model DatosPersonales {
+  id                    Int                 @id @default(autoincrement())
+  clienteId             Int                 @unique
+  cedula                String              @unique @db.VarChar(20)
+  codigo_dactilar       String?             @db.VarChar(50)
+  autoriza_verificacion Boolean             @default(false)
+  
+  cliente               Cliente             @relation(fields: [clienteId], references: [id], onDelete: Cascade)
+
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime?
+
+  @@index([clienteId])
+  @@map("datos_personales")
+}
+
+model DatosDomicilio {
+  id                    Int                 @id @default(autoincrement())
+  clienteId             Int                 @unique
+  provincia             String              @db.VarChar(100)
+  canton                String              @db.VarChar(100)
+  parroquia             String              @db.VarChar(100)
+  barrio                String?             @db.VarChar(100)
+  direccion             String              @db.VarChar(255)
+  referencia            String?             @db.VarChar(255)
+  numero_casa           String?             @db.VarChar(20)
+  tipo_telefono         String?             @db.VarChar(20)
+  numero_telefono       String?             @db.VarChar(20)
+  
+  cliente               Cliente             @relation(fields: [clienteId], references: [id], onDelete: Cascade)
+
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime?
+
+  @@index([clienteId])
+  @@map("datos_domicilio")
+}
+
+model DatosLaborales {
+  id                    Int                 @id @default(autoincrement())
+  clienteId             Int                 @unique
+  relacion_laboral      String              @db.VarChar(50)
+  ingresos_mensuales    Decimal             @default(0) @db.Decimal(12, 2)
+  actividad_economica   String              @db.VarChar(100)
+  direccion_laboral     String?             @db.VarChar(255)
+  provincia_laboral     String?             @db.VarChar(100)
+  canton_laboral        String?             @db.VarChar(100)
+  parroquia_laboral     String?             @db.VarChar(100)
+  barrio_laboral        String?             @db.VarChar(100)
+  calle_principal_laboral String?           @db.VarChar(100)
+  calle_secundaria_laboral String?          @db.VarChar(100)
+  referencia_laboral    String?             @db.VarChar(255)
+  numeracion_laboral    String?             @db.VarChar(20)
+  telefono_laboral      String?             @db.VarChar(20)
+  tipo_telefono_laboral String?             @db.VarChar(20)
+  numero_casa_laboral   String?             @db.VarChar(20)
+  
+  cliente               Cliente             @relation(fields: [clienteId], references: [id], onDelete: Cascade)
+
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime?
+
+  @@index([clienteId])
+  @@map("datos_laborales")
+}
+
+model DatosFinancieros {
+  id                    Int                 @id @default(autoincrement())
+  clienteId             Int                 @unique
+  activos               Decimal             @default(0) @db.Decimal(15, 2)
+  pasivos               Decimal             @default(0) @db.Decimal(15, 2)
+  patrimonio            Decimal             @default(0) @db.Decimal(15, 2)
+  
+  cliente               Cliente             @relation(fields: [clienteId], references: [id], onDelete: Cascade)
+
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime?
+
+  @@index([clienteId])
+  @@map("datos_financieros")
+}
+
+model Legalizacion {
+  id                    Int                 @id @default(autoincrement())
+  clienteId             Int                 @unique
+  acepta_terminos       Boolean             @default(false)
+  ip_solicitud          String?             @db.VarChar(45)
+  navegador             String?             @db.VarChar(255)
+  
+  cliente               Cliente             @relation(fields: [clienteId], references: [id], onDelete: Cascade)
+
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime?
+
+  @@index([clienteId])
+  @@map("legalizacion")
+}

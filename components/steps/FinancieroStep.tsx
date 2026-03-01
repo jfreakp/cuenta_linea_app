@@ -30,7 +30,7 @@ export const FinancieroStep = ({
         paso_fin={paso_fin}
         progress={progress}
       />
-      <div className="w-full max-w-4xl dark:bg-slate-900 border border-border-light dark:border-border-dark rounded-md shadow-sm p-6 md:p-8">
+      <div className="w-full max-w-4xl border border-border-light rounded-md shadow-sm p-6 md:p-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
           <Input
             label="Activos"

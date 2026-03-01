@@ -21,21 +21,21 @@ export const SelectGeneric = ({
   return (
     <div className="flex flex-col">
       <label
-        className="flex items-center text-sm font-semibold text-slate-600 dark:text-slate-300 mb-1"
+        className="flex items-center text-sm font-semibold text-slate-600 mb-1"
         htmlFor={name}
       >
         {label}
       </label>
       <div className="relative">
         <select
-          className="w-full bg-input-light dark:bg-input-dark border-transparent focus:border-primary focus:ring-0 rounded-lg my-1 py-3 px-4 text-gray-700 dark:text-gray-200 appearance-none"
+          className="w-full bg-input-light border-transparent focus:border-primary focus:ring-0 rounded-lg my-1 py-3 px-4 text-gray-700 appearance-none"
           id={id}
           name={name}
           value={value ?? ""}
           onChange={onChange}
         >
           <option
-            className="border-b border-gray-300 dark:border-gray-800"
+            className="border-b border-gray-300"
             value=""
             disabled
           >
@@ -44,7 +44,7 @@ export const SelectGeneric = ({
           {options?.map((option) => (
             <option
               key={option.value}
-              className="border-b border-gray-300 dark:border-gray-800"
+              className="border-b border-gray-300"
               value={option.value}
             >
               {option.label}

@@ -70,7 +70,7 @@ export const ClienteStep = ({
           paso_fin={paso_fin}
           progress={progress}
         />
-        <div className="bg-surface-light dark:bg-slate-900 w-full max-w-4xl rounded-lg shadow-sm border border-border-light dark:border-border-dark p-6 md:p-8">
+        <div className="bg-surface-light w-full max-w-4xl rounded-lg shadow-sm border border-border-light p-6 md:p-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             <Input
               name="nombre_apellido"
@@ -117,32 +117,32 @@ export const ClienteStep = ({
           </div>
         </div>
         <div className="w-full max-w-4xl mt-6 px-1">
-          <p className="text-sm text-text-light dark:text-text-dark mb-3">
+          <p className="text-sm text-text-light mb-3">
             ¿Tienes obligaciones tributarias en otro país?
           </p>
           <div className="flex gap-6">
             <label className="inline-flex items-center cursor-pointer">
               <input
-                className="form-checkbox h-4 w-4 text-primary border-gray-300 dark:border-gray-600 dark:bg-surface-dark rounded focus:ring-primary transition duration-150 ease-in-out"
+                className="form-checkbox h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary transition duration-150 ease-in-out"
                 type="radio"
                 onChange={onChange}
                 name="obligaciones_tributarias"
                 value="S"
               />
-              <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+              <span className="ml-2 text-sm text-gray-700">
                 Si
               </span>
             </label>
             <label className="inline-flex items-center cursor-pointer">
               <input
-                className="form-checkbox h-4 w-4 text-primary border-gray-300 dark:border-gray-600 dark:bg-surface-dark rounded focus:ring-primary transition duration-150 ease-in-out"
+                className="form-checkbox h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary transition duration-150 ease-in-out"
                 type="radio"
                 onChange={onChange}
                 name="obligaciones_tributarias"
                 value="N"
                 checked={true}
               />
-              <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+              <span className="ml-2 text-sm text-gray-700">
                 No
               </span>
             </label>

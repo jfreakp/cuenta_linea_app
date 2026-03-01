@@ -8,19 +8,13 @@
   --color-primary: #79c02d;
   --color-secondary: #558B2F;
   --color-background-light: #f4f7f6;
-  --color-background-dark: #0f172a;
   --color-card-light: #ffffff;
-  --color-card-dark: #1e1e1e;
   --color-input-light: #f3f4f6;
-  --color-input-dark: #2d2d2d;
   --color-surface-light: #FFFFFF;
-  --color-surface-dark: #1E1E1E;
   --color-border-light: #E0E0E0;
-  --color-border-dark: #333333;
   --color-text-light: #333333;
-  --color-text-dark: #E0E0E0;
   --color-input-disabled-light: #E0E0E0;
-  --color-input-disabled-dark: #333333;
+
 
   --font-display: "Inter", sans-serif;
 

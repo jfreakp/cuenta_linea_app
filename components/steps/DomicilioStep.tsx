@@ -108,7 +108,7 @@ export const DomicilioStep = ({
           paso_fin={paso_fin}
           progress={progress}
         />
-        <div className="bg-card-light dark:bg-slate-900 rounded-xl shadow-sm border border-gray-100 dark:border-zinc-800 p-8 md:p-12">
+        <div className="bg-card-light rounded-xl shadow-sm border border-gray-100 p-8 md:p-12">
           <form action="#" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
               <SelectApi
@@ -198,31 +198,31 @@ export const DomicilioStep = ({
               
               <div className="space-y-2">
                 <div className="flex justify-between items-center mb-1">
-                  <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 px-2">
+                  <label className="block text-sm font-medium text-gray-600 px-2">
                     Teléfono
                   </label>
                   <div className="flex justify-between items-center mb-1">
                     <div className="flex space-x-4 items-center">
-                      <label className="flex items-center gap-2 text-xs text-dark:text-gray-400 cursor-pointer">
+                      <label className="flex items-center gap-2 text-xs cursor-pointer">
                         <input
                           type="radio"
                           name="tipo_telefono"
                           value="C"
                           checked={phoneType === "C"}
                           onChange={() => setPhoneType("C")}
-                          className="h-4 w-4 accent-primary border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:ring-primary"
+                          className="h-4 w-4 accent-primary border-gray-300 bg-white focus:ring-primary"
                         />
                         <span>Convencional</span>
                       </label>
 
-                      <label className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400 cursor-pointer">
+                      <label className="flex items-center gap-2 text-xs text-gray-600 cursor-pointer">
                         <input
                           type="radio"
                           name="tipo_telefono"
                           value="M"
                           checked={phoneType === "M"}
                           onChange={() => setPhoneType("M")}
-                          className="h-4 w-4 accent-primary border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:ring-primary"
+                          className="h-4 w-4 accent-primary border-gray-300 bg-white focus:ring-primary"
                         />
                         <span>Móvil</span>
                       </label>
@@ -230,7 +230,7 @@ export const DomicilioStep = ({
                   </div>
                 </div>
                 <input
-                  className="w-full bg-input-light dark:bg-slate-800 border-transparent focus:border-primary focus:ring-0 rounded-lg py-3 px-4 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
+                  className="w-full bg-input-light border-transparent focus:border-primary focus:ring-0 rounded-lg py-3 px-4 text-gray-700 placeholder-gray-400"
                   placeholder="Ej. 098965878"
                   type="tel"
                   name="numero_telefono"
@@ -241,7 +241,7 @@ export const DomicilioStep = ({
             </div>
           </form>
         </div>
-        <p className="text-center mt-12 text-sm text-gray-500 dark:text-zinc-500">
+        <p className="text-center mt-12 text-sm text-gray-500">
           ¿Necesitas ayuda? Llámanos al{" "}
           <span className="font-semibold text-primary">1800 565 233</span>
         </p>

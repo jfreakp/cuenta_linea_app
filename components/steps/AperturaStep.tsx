@@ -30,14 +30,14 @@ export const AperturaStep = ({
         paso_fin={paso_fin}
         progress={progress}
       />
-      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-8 md:p-12 mb-8 transition-colors duration-200 border border-slate-100 dark:border-slate-800">
-        <p className="text-slate-500 dark:text-slate-400 mb-10 text-center max-w-lg mx-auto leading-relaxed">
+      <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 mb-8 transition-colors duration-200 border border-slate-100">
+        <p className="text-slate-500 mb-10 text-center max-w-lg mx-auto leading-relaxed">
           De forma fácil, rápida y segura. Adicional recibe tu tarjeta de débito
           gratis en la comodidad de tu hogar o trabajo.
         </p>
         <div className="space-y-8">
           <div>
-            <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-6 flex items-center">
+            <h2 className="text-lg font-bold text-slate-800 mb-6 flex items-center">
               <span className="w-1.5 h-6 bg-primary mr-3 rounded-full"></span>
               Datos de identificación:
             </h2>
@@ -66,25 +66,25 @@ export const AperturaStep = ({
               />
             </div>
           </div>
-          <div className="bg-green-50 dark:bg-green-950/20 border border-green-100 dark:border-green-900/30 rounded-xl p-4 flex items-start space-x-3">
+          <div className="bg-green-50 border border-green-100 rounded-xl p-4 flex items-start space-x-3">
             <span className="material-icons-outlined text-primary mt-0.5">
               info
             </span>
-            <p className="text-sm text-green-800 dark:text-green-200/80 leading-snug">
+            <p className="text-sm text-green-800 leading-snug">
               Disponible para ciudadanos ecuatorianos residentes en el país,
               excepto Región Insular (Galápagos).
             </p>
           </div>
-          <label className="flex items-start space-x-3 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800 cursor-pointer">
+          <label className="flex items-start space-x-3 bg-slate-50 p-4 rounded-xl border border-slate-100 cursor-pointer">
             <input
-              className="focus:ring-primary h-5 w-5 text-primary border-slate-300 dark:border-slate-600 rounded cursor-pointer mt-1"
+              className="focus:ring-primary h-5 w-5 text-primary border-slate-300 rounded cursor-pointer mt-1"
               id="autoriza_verificacion"
               name="autoriza_verificacion"
               type="checkbox"
               checked={formData.datosPersonales.autoriza_verificacion}
               onChange={onChange}
             />
-            <span className="text-sm text-slate-600 dark:text-slate-400 leading-tight">
+            <span className="text-sm text-slate-600 leading-tight">
               Autorizo a Banco de xxx a verificar mis datos de fuentes legales
               de información.
             </span>
