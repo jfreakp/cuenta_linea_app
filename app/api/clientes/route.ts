@@ -189,3 +189,39 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function GET() {
+  try {
+    const clientes = await prisma.cliente.findMany({
+      select: {
+        id: true,
+        nombres: true,
+        apellidos: true,
+        correo: true,
+        telefono: true,
+        motivo_apertura: true,
+        estado: true,
+        createdAt: true,
+        datosPersonales: {
+          select: {
+            cedula: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return NextResponse.json({
+      total: clientes.length,
+      clientes: clientes,
+    });
+  } catch (error) {
+    console.error("Error fetching clientes:", error);
+    return NextResponse.json(
+      { error: "Error al obtener los clientes", details: String(error) },
+      { status: 500 }
+    );
+  }
+}

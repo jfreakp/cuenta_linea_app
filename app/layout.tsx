@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -35,8 +34,13 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
           rel="stylesheet"
         />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body className="bg-background-light min-h-screen transition-colors duration-200">
+        {/*} Header 
         <header className="w-full py-6 bg-white shadow-sm transition-colors duration-200">
           <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
             <div className="flex items-center space-x-2">
@@ -52,6 +56,7 @@ export default function RootLayout({
             </button>
           </div>
         </header>
+        */}
         {children}
         <Toaster position="top-center" />
       </body>
