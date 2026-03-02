@@ -36,6 +36,8 @@ export default function RegisterForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
   const {
     register,
@@ -79,171 +81,283 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Crear Cuenta
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            ¿Ya tienes cuenta?{' '}
-            <Link
-              href="/auth/login"
-              className="font-medium text-blue-600 hover:text-blue-500"
+    <div
+      className={`min-h-screen flex items-center justify-center transition-colors duration-300 ${
+        isDark
+          ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
+          : 'bg-gradient-to-br from-white via-gray-50 to-white'
+      } px-4 sm:px-6 lg:px-8 py-12`}
+    >
+      {/* Dark Mode Toggle Button */}
+      <button
+        onClick={() => setIsDark(!isDark)}
+        className={`fixed top-8 right-8 p-3 rounded-full transition-all duration-300 ${
+          isDark
+            ? 'bg-gray-700 hover:bg-gray-600 text-yellow-400'
+            : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+        }`}
+        aria-label="Toggle dark mode"
+      >
+        {isDark ? '☀️' : '🌙'}
+      </button>
+
+      <div className="w-full max-w-md">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1
+            className={`text-4xl font-bold mb-2 ${
+              isDark ? 'text-white' : 'text-gray-900'
+            }`}
+          >
+            Crea tu <span className="text-[#78BE20]">cuenta</span>
+          </h1>
+
+          {/* Step Indicator */}
+          <div className="flex items-center justify-center gap-3 mt-4">
+            <span
+              className={`text-sm font-medium ${
+                isDark ? 'text-gray-400' : 'text-gray-600'
+              }`}
             >
-              Inicia sesión
-            </Link>
-          </p>
+              Paso 1 de 3
+            </span>
+            {/* Progress Bar */}
+            <div
+              className={`w-16 h-1 rounded-full overflow-hidden ${
+                isDark ? 'bg-gray-700' : 'bg-gray-200'
+              }`}
+            >
+              <div className="w-1/3 h-full bg-[#78BE20]"></div>
+            </div>
+          </div>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          <div className="space-y-4">
-            {/* Email */}
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                required
-                className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${
-                  errors.email ? 'border-red-500' : ''
-                }`}
-                placeholder="tu@email.com"
-                {...register('email')}
-              />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
-              )}
-            </div>
-
-            {/* Nombres */}
-            <div>
-              <label htmlFor="nombres" className="block text-sm font-medium text-gray-700">
-                Nombres (opcional)
-              </label>
-              <input
-                id="nombres"
-                type="text"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Juan"
-                {...register('nombres')}
-              />
-            </div>
-
-            {/* Apellidos */}
-            <div>
-              <label htmlFor="apellidos" className="block text-sm font-medium text-gray-700">
-                Apellidos (opcional)
-              </label>
-              <input
-                id="apellidos"
-                type="text"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Pérez"
-                {...register('apellidos')}
-              />
-            </div>
-
-            {/* Contraseña */}
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Contraseña
-              </label>
-              <div className="mt-1 relative">
-                <input
-                  id="password"
-                  type={showPassword ? 'text' : 'password'}
-                  required
-                  className={`block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${
-                    errors.password ? 'border-red-500' : ''
-                  }`}
-                  placeholder="••••••••"
-                  {...register('password')}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                >
-                  {showPassword ? '🙈' : '👁️'}
-                </button>
-              </div>
-              {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
-              )}
-              <div className="mt-2 text-xs text-gray-500">
-                <p>La contraseña debe contener:</p>
-                <ul className="list-disc list-inside">
-                  <li>Mínimo 8 caracteres</li>
-                  <li>Una letra mayúscula (A-Z)</li>
-                  <li>Una letra minúscula (a-z)</li>
-                  <li>Un número (0-9)</li>
-                  <li>Un carácter especial (!@#$%^&*)</li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Confirmar Contraseña */}
-            <div>
-              <label
-                htmlFor="passwordConfirm"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Confirmar Contraseña
-              </label>
-              <input
-                id="passwordConfirm"
-                type="password"
-                required
-                className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${
-                  errors.passwordConfirm ? 'border-red-500' : ''
-                }`}
-                placeholder="••••••••"
-                {...register('passwordConfirm')}
-              />
-              {errors.passwordConfirm && (
-                <p className="mt-1 text-sm text-red-600">{errors.passwordConfirm.message}</p>
-              )}
-            </div>
-
-            {/* Términos */}
-            <div className="flex items-start">
-              <input
-                id="acceptTerms"
-                type="checkbox"
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                {...register('acceptTerms')}
-              />
-              <label htmlFor="acceptTerms" className="ml-2 block text-sm text-gray-900">
-                Acepto los{' '}
-                <Link
-                  href="/terms"
-                  className="text-blue-600 hover:text-blue-500 font-medium"
-                >
-                  términos y condiciones
-                </Link>
-              </label>
-            </div>
-            {errors.acceptTerms && (
-              <p className="text-sm text-red-600">{errors.acceptTerms.message}</p>
+        {/* Form */}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          {/* Nombre Completo */}
+          <div>
+            <input
+              id="nombres"
+              type="text"
+              placeholder="Nombre completo"
+              className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#78BE20] ${
+                isDark
+                  ? `bg-gray-800 border-gray-700 text-white placeholder-gray-500 ${
+                      errors.nombres
+                        ? 'border-red-500 focus:ring-red-500'
+                        : 'focus:border-[#78BE20]'
+                    }`
+                  : `bg-white border-gray-200 text-gray-900 placeholder-gray-400 ${
+                      errors.nombres
+                        ? 'border-red-500 focus:ring-red-500'
+                        : 'focus:border-[#78BE20]'
+                    }`
+              }`}
+              {...register('nombres')}
+            />
+            {errors.nombres && (
+              <p className="mt-2 text-sm text-red-500">{errors.nombres.message}</p>
             )}
           </div>
 
+          {/* Apellido */}
           <div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
-                isLoading
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+            <input
+              id="apellidos"
+              type="text"
+              placeholder="Apellido"
+              className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#78BE20] ${
+                isDark
+                  ? `bg-gray-800 border-gray-700 text-white placeholder-gray-500 ${
+                      errors.apellidos
+                        ? 'border-red-500 focus:ring-red-500'
+                        : 'focus:border-[#78BE20]'
+                    }`
+                  : `bg-white border-gray-200 text-gray-900 placeholder-gray-400 ${
+                      errors.apellidos
+                        ? 'border-red-500 focus:ring-red-500'
+                        : 'focus:border-[#78BE20]'
+                    }`
+              }`}
+              {...register('apellidos')}
+            />
+            {errors.apellidos && (
+              <p className="mt-2 text-sm text-red-500">{errors.apellidos.message}</p>
+            )}
+          </div>
+
+          {/* Email */}
+          <div>
+            <input
+              id="email"
+              type="email"
+              required
+              placeholder="Correo electrónico"
+              className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#78BE20] ${
+                isDark
+                  ? `bg-gray-800 border-gray-700 text-white placeholder-gray-500 ${
+                      errors.email
+                        ? 'border-red-500 focus:ring-red-500'
+                        : 'focus:border-[#78BE20]'
+                    }`
+                  : `bg-white border-gray-200 text-gray-900 placeholder-gray-400 ${
+                      errors.email
+                        ? 'border-red-500 focus:ring-red-500'
+                        : 'focus:border-[#78BE20]'
+                    }`
+              }`}
+              {...register('email')}
+            />
+            {errors.email && (
+              <p className="mt-2 text-sm text-red-500">{errors.email.message}</p>
+            )}
+          </div>
+
+          {/* Password */}
+          <div>
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                required
+                placeholder="Nueva contraseña"
+                className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#78BE20] ${
+                  isDark
+                    ? `bg-gray-800 border-gray-700 text-white placeholder-gray-500 ${
+                        errors.password
+                          ? 'border-red-500 focus:ring-red-500'
+                          : 'focus:border-[#78BE20]'
+                      }`
+                    : `bg-white border-gray-200 text-gray-900 placeholder-gray-400 ${
+                        errors.password
+                          ? 'border-red-500 focus:ring-red-500'
+                          : 'focus:border-[#78BE20]'
+                      }`
+                }`}
+                {...register('password')}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className={`absolute right-4 top-1/2 -translate-y-1/2 transition-colors ${
+                  isDark ? 'text-gray-500 hover:text-gray-400' : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                {showPassword ? '🙈' : '👁️'}
+              </button>
+            </div>
+            {errors.password && (
+              <p className="mt-2 text-sm text-red-500">{errors.password.message}</p>
+            )}
+            <div
+              className={`mt-3 text-xs space-y-1 ${
+                isDark ? 'text-gray-400' : 'text-gray-600'
               }`}
             >
-              {isLoading ? 'Registrando...' : 'Crear Cuenta'}
-            </button>
+              <p className="font-medium">La contraseña debe contener:</p>
+              <ul className="list-disc list-inside space-y-1">
+                <li>Mínimo 8 caracteres</li>
+                <li>Una letra mayúscula (A-Z)</li>
+                <li>Una letra minúscula (a-z)</li>
+                <li>Un número (0-9)</li>
+                <li>Un carácter especial (!@#$%^&*)</li>
+              </ul>
+            </div>
           </div>
+
+          {/* Confirm Password */}
+          <div>
+            <div className="relative">
+              <input
+                id="passwordConfirm"
+                type={showConfirmPassword ? 'text' : 'password'}
+                required
+                placeholder="Confirmar contraseña"
+                className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#78BE20] ${
+                  isDark
+                    ? `bg-gray-800 border-gray-700 text-white placeholder-gray-500 ${
+                        errors.passwordConfirm
+                          ? 'border-red-500 focus:ring-red-500'
+                          : 'focus:border-[#78BE20]'
+                      }`
+                    : `bg-white border-gray-200 text-gray-900 placeholder-gray-400 ${
+                        errors.passwordConfirm
+                          ? 'border-red-500 focus:ring-red-500'
+                          : 'focus:border-[#78BE20]'
+                      }`
+                }`}
+                {...register('passwordConfirm')}
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className={`absolute right-4 top-1/2 -translate-y-1/2 transition-colors ${
+                  isDark ? 'text-gray-500 hover:text-gray-400' : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                {showConfirmPassword ? '🙈' : '👁️'}
+              </button>
+            </div>
+            {errors.passwordConfirm && (
+              <p className="mt-2 text-sm text-red-500">{errors.passwordConfirm.message}</p>
+            )}
+          </div>
+
+          {/* Terms Checkbox */}
+          <div className="flex items-start gap-3 pt-2">
+            <input
+              id="acceptTerms"
+              type="checkbox"
+              className="w-5 h-5 rounded cursor-pointer accent-[#78BE20] mt-0.5"
+              {...register('acceptTerms')}
+            />
+            <label
+              htmlFor="acceptTerms"
+              className={`text-sm cursor-pointer leading-relaxed ${
+                isDark ? 'text-gray-300' : 'text-gray-700'
+              }`}
+            >
+              Acepto los{' '}
+              <Link
+                href="/terms"
+                className="text-[#78BE20] hover:text-[#6aad1d] font-medium"
+              >
+                términos y condiciones
+              </Link>
+            </label>
+          </div>
+          {errors.acceptTerms && (
+            <p className="text-sm text-red-500">{errors.acceptTerms.message}</p>
+          )}
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={isLoading}
+            className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-all duration-300 mt-6 ${
+              isLoading
+                ? `bg-gray-400 cursor-not-allowed ${
+                    isDark ? 'hover:bg-gray-400' : 'hover:bg-gray-400'
+                  }`
+                : `bg-[#78BE20] hover:bg-[#6aad1d] active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#78BE20] ${
+                    isDark ? 'focus:ring-offset-gray-900' : 'focus:ring-offset-white'
+                  }`
+            }`}
+          >
+            {isLoading ? 'Registrando...' : 'Continuar'}
+          </button>
+
+          {/* Login Link */}
+          <p
+            className={`text-center text-sm ${
+              isDark ? 'text-gray-400' : 'text-gray-600'
+            }`}
+          >
+            ¿Ya tienes cuenta?{' '}
+            <Link href="/auth/login" className="text-[#78BE20] hover:text-[#6aad1d] font-medium">
+              Inicia sesión
+            </Link>
+          </p>
         </form>
       </div>
     </div>

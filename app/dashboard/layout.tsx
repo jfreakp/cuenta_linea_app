@@ -1,4 +1,15 @@
+'use client';
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { useState, useEffect, useRef } from "react";
+
+type User = {
+  nombres: string;
+  apellidos: string;
+  email: string;
+};
 
 // app/dashboard/layout.tsx
 export default function DashboardLayout({
@@ -6,6 +17,62 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Obtener información del usuario
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch('/api/auth/me');
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  // Cerrar menú al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowUserMenu(false);
+      }
+    };
+
+    if (showUserMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showUserMenu]);
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('/api/auth/logout', {
+        method: 'POST',
+      });
+
+      if (response.ok) {
+        toast.success('Sesión cerrada exitosamente');
+        router.push('/auth/login');
+      } else {
+        toast.error('Error al cerrar sesión');
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+      toast.error('Error al cerrar sesión');
+    }
+  };
   return (
     <>
       <header className="h-16 border-b border-border-light flex items-center justify-between px-6 bg-background-light sticky top-0 z-50">
@@ -24,18 +91,35 @@ export default function DashboardLayout({
             <span className="material-symbols-outlined">notifications</span>
             <span className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full border-2 border-white"></span>
           </button>
-          <div className="flex items-center gap-3 pl-4 border-l border-border-light ">
+          <div className="flex items-center gap-3 pl-4 border-l border-border-light">
             <div className="text-right hidden sm:block">
               <p className="text-sm font-semibold text-slate-900">
-                Admin Central
+                {user ? `${user.nombres} ${user.apellidos}` : 'Cargando...'}
               </p>
               <p className="text-xs text-slate-500">Gestión de Clientes</p>
             </div>
-            <div className="w-10 h-10 rounded-full bg-surface-light  border border-border-light overflow-hidden">
-              <img
-                alt="Avatar de usuario"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi2zsQ8o1kEH44yyQyepIe9MzNaUDFnZtGtqxoMA9sms4WleMpQDdzo1fVO3gTPgKKd4bNWG9aJwhZyW_hxthiocioTPj9QUeQE2WkOapWDECBMTOG21_3N3zJflRm1O3I9b4tqjA-Z6omFEcF_W5tJY519esitOid0SJQByqrMWE2YtGpwJJn6tpxebpKrapph1AiVdTfUwdy_9wigsNDUSePsZQSOllL0Sv6fbIiV870_4sfO9LmMd-JFSdRfCeTf2UwoclV0Uvd"
-              />
+            <div className="relative" ref={menuRef}>
+              <button
+                onClick={() => setShowUserMenu(!showUserMenu)}
+                className="w-10 h-10 rounded-full bg-surface-light border border-border-light overflow-hidden hover:ring-2 hover:ring-primary transition-all"
+              >
+                <img
+                  alt="Avatar de usuario"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi2zsQ8o1kEH44yyQyepIe9MzNaUDFnZtGtqxoMA9sms4WleMpQDdzo1fVO3gTPgKKd4bNWG9aJwhZyW_hxthiocioTPj9QUeQE2WkOapWDECBMTOG21_3N3zJflRm1O3I9b4tqjA-Z6omFEcF_W5tJY519esitOid0SJQByqrMWE2YtGpwJJn6tpxebpKrapph1AiVdTfUwdy_9wigsNDUSePsZQSOllL0Sv6fbIiV870_4sfO9LmMd-JFSdRfCeTf2UwoclV0Uvd"
+                />
+              </button>
+              
+              {showUserMenu && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-border-light py-1 z-50">
+                  <button
+                    onClick={handleLogout}
+                    className="w-full px-4 py-2 text-left text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2 transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-xl">logout</span>
+                    Cerrar Sesión
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
