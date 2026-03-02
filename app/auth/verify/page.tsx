@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import Link from 'next/link';
 
-export default function VerifyEmailPage() {
+export function VerifyEmailContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [isVerifying, setIsVerifying] = useState(true);
@@ -97,5 +97,15 @@ export default function VerifyEmailPage() {
         )}
       </div>
     </div>
+  );
+}
+
+import { Suspense } from 'react';
+
+export default function VerifyEmailPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Cargando...</div>}>
+      <VerifyEmailContent />
+    </Suspense>
   );
 }

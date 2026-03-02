@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import ResetPasswordForm from '@/components/auth/ResetPasswordForm';
 
 export const metadata = {
@@ -5,6 +6,14 @@ export const metadata = {
   description: 'Restablece tu contraseña',
 };
 
-export default function ResetPasswordPage() {
+function ResetPasswordPageContent() {
   return <ResetPasswordForm />;
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Cargando...</div>}>
+      <ResetPasswordPageContent />
+    </Suspense>
+  );
 }
