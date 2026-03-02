@@ -52,6 +52,8 @@ export const AperturaStep = ({
                 disabled={false}
                 outline
                 outline_title="Número de identificación ciudadana"
+                modal
+                img_url="/img/apertura/cedula1.png"
               />
               <Input
                 name="codigo_dactilar"
@@ -63,6 +65,8 @@ export const AperturaStep = ({
                 disabled={false}
                 outline
                 outline_title="Ubicado al reverso de tu cédula"
+                modal
+                img_url="/img/apertura/cedula2.png"
               />
             </div>
           </div>
