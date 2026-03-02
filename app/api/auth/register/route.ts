@@ -100,17 +100,12 @@ export async function POST(request: NextRequest): Promise<NextResponse<AuthRespo
     const verificationLink = `${baseUrl}/auth/verify?token=${verificationToken}`;
     
     const userName = nombres || email;
-    // Log para depuración: intentar enviar email de verificación
-    console.log('SMTP host:', process.env.EMAIL_HOST, 'EMAIL_USER configured:', !!process.env.EMAIL_USER);
-    console.log('Enviando email de verificación a:', email, 'link:', verificationLink);
 
     const emailSent = await sendEmail({
       to: email,
       subject: 'Verifica tu email - Cuenta en Línea',
       html: getVerificationEmailTemplate(userName, verificationLink),
     });
-
-    console.log('Resultado sendEmail for', email, ':', emailSent);
 
     if (!emailSent) {
       console.warn('Email de verificación no pudo ser enviado para:', email);

@@ -39,7 +39,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="bg-background-light min-h-screen transition-colors duration-200">
+      <body 
+        className="bg-background-light min-h-screen transition-colors duration-200"
+        suppressHydrationWarning
+      >
         {/*} Header 
         <header className="w-full py-6 bg-white shadow-sm transition-colors duration-200">
           <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">

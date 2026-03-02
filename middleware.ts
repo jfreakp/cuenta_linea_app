@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyJWT } from '@/lib/auth';
+import { verifyJWTEdge } from '@/lib/auth-edge';
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Rutas protegidas que requieren autenticación
@@ -18,7 +18,8 @@ export function middleware(request: NextRequest) {
     }
 
     // Verificar JWT
-    const payload = verifyJWT(token);
+    const payload = await verifyJWTEdge(token);
+    
     if (!payload) {
       const response = NextResponse.redirect(new URL('/auth/login', request.url));
       response.cookies.set({
@@ -37,7 +38,7 @@ export function middleware(request: NextRequest) {
   if (isAuthRoute) {
     const token = request.cookies.get('auth_token')?.value;
     if (token) {
-      const payload = verifyJWT(token);
+      const payload = await verifyJWTEdge(token);
       if (payload) {
         return NextResponse.redirect(new URL('/dashboard', request.url));
       }

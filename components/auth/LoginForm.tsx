@@ -40,15 +40,19 @@ export default function LoginForm() {
 
       if (!response.ok) {
         toast.error(result.message || 'Error al iniciar sesión');
+        setIsLoading(false);
         return;
       }
 
       toast.success('¡Sesión iniciada exitosamente!');
+      
+      // Usar router refresh y push para Next.js
+      router.refresh();
+      await new Promise(resolve => setTimeout(resolve, 500));
       router.push('/dashboard');
     } catch (error) {
       console.error('Login error:', error);
       toast.error('Error al conectar con el servidor');
-    } finally {
       setIsLoading(false);
     }
   };

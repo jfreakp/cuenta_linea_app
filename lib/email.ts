@@ -22,8 +22,6 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
   try {
     // Si no está configurado el correo, solo loguea en desarrollo
     if (!process.env.EMAIL_USER) {
-      console.log('Email service not configured. Email would be sent to:', options.to);
-      console.log('Subject:', options.subject);
       return true;
     }
 

@@ -21,6 +21,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<AuthRespon
 
     // Verificar JWT
     const payload = verifyJWT(token);
+    
     if (!payload) {
       return NextResponse.json(
         {

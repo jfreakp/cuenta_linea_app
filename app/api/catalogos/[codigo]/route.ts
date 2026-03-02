@@ -7,7 +7,6 @@ export async function GET(
 ) {
   try {
     const { codigo } = await params;
-    console.log("Fetching catálogo:", codigo);
 
     const catalogo = await prisma.catalogo.findUnique({
       where: { codigo },
@@ -26,7 +25,6 @@ export async function GET(
       );
     }
 
-    console.log("Catálogo fetched:", catalogo);
     return NextResponse.json(catalogo);
   } catch (error) {
     console.error("Error fetching catálogo:", error);

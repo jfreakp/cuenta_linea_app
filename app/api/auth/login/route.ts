@@ -112,6 +112,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<AuthRespo
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: 7 * 24 * 60 * 60, // 7 días
+      path: '/',
     });
 
     return response;

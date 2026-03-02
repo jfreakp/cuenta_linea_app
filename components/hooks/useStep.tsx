@@ -109,7 +109,6 @@ export function useStep(
     setStep((s) => Math.max(1, s - 1));
   }, [setStep]);
 
-  console.log("Form data at step", step, formData);
 
   return { nextStep, prevStep } as const;
 }

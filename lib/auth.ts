@@ -30,6 +30,8 @@ export function generateToken(): string {
 
 // Generar JWT simple (sin dependencias externas)
 export function generateJWT(userId: number, email: string, expiresIn: number = 7 * 24 * 60 * 60): string {
+  const secret = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+  
   const header = {
     alg: 'HS256',
     typ: 'JWT'
@@ -41,8 +43,6 @@ export function generateJWT(userId: number, email: string, expiresIn: number = 7
     iat: Math.floor(Date.now() / 1000),
     exp: Math.floor(Date.now() / 1000) + expiresIn
   };
-
-  const secret = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 
   const headerEncoded = Buffer.from(JSON.stringify(header)).toString('base64url');
   const payloadEncoded = Buffer.from(JSON.stringify(payload)).toString('base64url');
@@ -60,6 +60,10 @@ export function verifyJWT(token: string): { sub: number; email: string; iat: num
   try {
     const secret = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
     const [headerEncoded, payloadEncoded, signature] = token.split('.');
+
+    if (!headerEncoded || !payloadEncoded || !signature) {
+      return null;
+    }
 
     const expectedSignature = crypto
       .createHmac('sha256', secret)

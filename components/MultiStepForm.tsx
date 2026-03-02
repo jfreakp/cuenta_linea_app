@@ -102,7 +102,6 @@ export default function MultiStepForm() {
       }
 
       toast.success("¡Formulario enviado exitosamente!");
-      console.log("Cliente guardado:", result.cliente);
 
       // Aquí puedes realizar acciones adicionales como redirigir, etc.
       // window.location.href = '/success';

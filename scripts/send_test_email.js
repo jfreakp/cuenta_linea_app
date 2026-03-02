@@ -31,9 +31,7 @@ const nodemailer = require('nodemailer');
       },
     });
 
-    console.log('Verificando conexión SMTP...');
     await transporter.verify();
-    console.log('Conexión SMTP OK');
 
     const to = EMAIL_USER; // enviar a la cuenta configurada
     const info = await transporter.sendMail({
@@ -44,8 +42,6 @@ const nodemailer = require('nodemailer');
       html: `<p>Este es un correo de prueba desde <strong>${NEXT_PUBLIC_BASE_URL || 'tu aplicación'}</strong></p>`,
     });
 
-    console.log('Correo enviado correctamente. Response:');
-    console.log(info);
     process.exit(0);
   } catch (err) {
     console.error('Error al enviar el correo:', err);
